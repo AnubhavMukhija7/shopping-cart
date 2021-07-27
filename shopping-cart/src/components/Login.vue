@@ -2,7 +2,7 @@
     <div>
         <h2>Log In</h2>
         <form @submit.prevent ="loginHandler">
-            <input v-model="userName" placeholder="User Name" />
+            <input v-model="username" placeholder="User Name" />
             <br/>
             <input v-model="password" type="password" placeholder="Password" />
             <br/>
@@ -12,20 +12,28 @@
 </template>
 
 <script>
+import {GetUserRequest} from '../services/get-user-service'
 export default {
+    name:'auth',
     data(){
         return{
-            userName: '',
+            username: '',
             password: '',
         }
     },
     methods:{
         loginHandler() { 
+            //GetUserRequest can't define here why?  Wasted half hour because of this ASKK
             const req = {
-                userName:this.userName,
-                password:this.password
+                username: this.username.trim(),
+                password: this.password,
             }
-            console.log(req)
+            //why is it not taking type ?
+            this.$store.dispatch('authUser' , req)
+
+            //can't get state see how ---------------------------------???? Continue from here
+            console.log(this.$store.state.user)
+            // this.$router.push('/login')
         }
     }
 }

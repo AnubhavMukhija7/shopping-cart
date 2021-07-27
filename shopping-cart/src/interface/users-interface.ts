@@ -10,6 +10,7 @@ export interface User {
   lastLogin: string | null;
   loginCount: number;
   isActive: boolean;
+  password:string;
 }
 
 export type Users = User[];
