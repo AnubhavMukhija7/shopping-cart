@@ -18,7 +18,7 @@
               <div class="photo-container">
                 <div class="photo-main">
                   <img
-                    src="https://res.cloudinary.com/john-mantas/image/upload/v1537291846/codepen/delicious-apples/green-apple-with-slice.png"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHw5sRAd60tt5YzCW7fHlQfKpXhXJtjOy28Q&usqp=CAU"
                     alt="green apple slice"
                   />
                 </div>
@@ -32,13 +32,22 @@
                 </div>
               </div>
               <div style="margin: 10px" class="price">
-                {{ item.price.value }} {{ item.price.currency }}
+                {{ item.price.currency }} {{ item.price.value }}
               </div>
               <div class="variant">
                 <h4>SELECT A COLOR</h4>
                 <ul class="color">
-                  <li>Red</li>
-                  <li>Green</li>
+                  <li v-for="(color, index) in item.color" :key="index">
+                    {{ color }}
+                  </li>
+                </ul>
+              </div>
+              <div class="variant">
+                <h4>SELECT SIZE</h4>
+                <ul class="sizes">
+                  <li v-for="(size, index) in item.sizes" :key="index">
+                    {{ size }}
+                  </li>
                 </ul>
               </div>
               <button class="buy--btn">ADD TO CART</button>
@@ -57,6 +66,9 @@ export default Vue.extend({
   data() {
     return {
       items: [] as Items,
+      sortBy: '',
+      filter: '',
+      search: '',
     };
   },
   created() {
@@ -78,6 +90,12 @@ export default Vue.extend({
   grid-template-columns: repeat(4, 1fr);
   gap: 50px;
   margin: auto 20px;
+}
+.photo-main {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: rgb(255, 255, 255);
 }
 .filters {
   display: flex;
@@ -101,6 +119,21 @@ export default Vue.extend({
 }
 .color li {
   border: none;
+}
+.color li:hover {
+  color: rgb(213, 210, 243);
+  background: rgb(20, 1, 71);
+}
+.sizes {
+  display: flex;
+  justify-content: center;
+}
+.sizes li {
+  border: none;
+}
+.sizes li:hover {
+  color: rgb(213, 210, 243);
+  background: rgb(20, 1, 71);
 }
 .buy--btn {
   padding: 1.5em 3.1em;
