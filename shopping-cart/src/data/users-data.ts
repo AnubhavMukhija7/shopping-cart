@@ -4,7 +4,7 @@ export const users : Users = [
   {
     id: 1,
     email: 'amukhija@ex2india.com',
-    userName: 'anubhav009',
+    userName: 'abc',
     phoneNumber: '9811672881',
     picture: '',
     firstName: 'Anubhav',
@@ -13,5 +13,6 @@ export const users : Users = [
     lastLogin: '',
     loginCount: 0,
     isActive: true,
+    password: 'abc',
   },
 ];
