@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../components/Login.vue";
+import Cart from "../components/Cart.vue";
+import Order from "../components/Order.vue";
 
 Vue.use(VueRouter);
 
@@ -25,6 +27,16 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  {
+    path: "/cart",
+    name: "Cart",
+    component : Cart
+  },
+  {
+    path:"/Order",
+    name: "Order",
+    component : Order
+  }
 ];
 
 const router = new VueRouter({
