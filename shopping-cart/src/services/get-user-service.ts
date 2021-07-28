@@ -9,7 +9,7 @@ export interface GetUserRequest {
 
 export interface GetUserResponse {
   // undefined ?? Solution if want to pass empty {}
-  data: User | undefined;
+  data: User | Record<string, string>;
   message: Message;
 }
 
@@ -19,7 +19,7 @@ export const getUserService = (payload: GetUserRequest): GetUserResponse => {
       user.userName === payload.username && user.password === payload.password
   );
   return {
-    data: user,
+    data: user ? user : {},
     message: user ? 'Success' : 'Error',
   };
 };
