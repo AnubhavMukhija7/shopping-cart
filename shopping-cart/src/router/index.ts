@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../components/Login.vue';
+import Cart from '../components/Cart.vue';
+import Order from '../components/Order.vue';
 import Item from '../components/Items.vue';
 
 Vue.use(VueRouter);
@@ -30,6 +32,16 @@ const routes: Array<RouteConfig> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart,
+  },
+  {
+    path: '/order',
+    name: 'Order',
+    component: Order,
   },
 ];
 
