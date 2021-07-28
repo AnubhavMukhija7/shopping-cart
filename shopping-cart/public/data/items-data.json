@@ -16,5 +16,113 @@
       "currency": "USD"
     },
     "sizes": ["L"]
+  },
+  {
+    "id": 2,
+    "kind": "content#product",
+    "title": "Google Tee Black",
+    "description": "The Black Google Tee is available in unisex sizing.",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "color": ["black"],
+    "condition": "new",
+    "gender": "M",
+    "price": {
+      "value": 21.99,
+      "currency": "USD"
+    },
+    "sizes": ["L"]
+  },
+  {
+    "id": 3,
+    "kind": "content#product",
+    "title": "Google Tee Black",
+    "description": "The Black Google Tee is available in unisex sizing.",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "color": ["black"],
+    "condition": "new",
+    "gender": "M",
+    "price": {
+      "value": 21.99,
+      "currency": "USD"
+    },
+    "sizes": ["L"]
+  },
+  {
+    "id": 4,
+    "kind": "content#product",
+    "title": "Google Tee Black",
+    "description": "The Black Google Tee is available in unisex sizing.",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "color": ["black"],
+    "condition": "new",
+    "gender": "M",
+    "price": {
+      "value": 21.99,
+      "currency": "USD"
+    },
+    "sizes": ["L"]
+  },
+  {
+    "id": 5,
+    "kind": "content#product",
+    "title": "Google Tee Black",
+    "description": "The Black Google Tee is available in unisex sizing.",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "color": ["black"],
+    "condition": "new",
+    "gender": "M",
+    "price": {
+      "value": 21.99,
+      "currency": "USD"
+    },
+    "sizes": ["L"]
+  },
+  {
+    "id": 6,
+    "kind": "content#product",
+    "title": "Google Tee Black",
+    "description": "The Black Google Tee is available in unisex sizing.",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "color": ["black"],
+    "condition": "new",
+    "gender": "M",
+    "price": {
+      "value": 21.99,
+      "currency": "USD"
+    },
+    "sizes": ["L"]
+  },
+  {
+    "id": 7,
+    "kind": "content#product",
+    "title": "Google Tee Black",
+    "description": "The Black Google Tee is available in unisex sizing.",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "color": ["black"],
+    "condition": "new",
+    "gender": "M",
+    "price": {
+      "value": 21.99,
+      "currency": "USD"
+    },
+    "sizes": ["L"]
   }
 ]
