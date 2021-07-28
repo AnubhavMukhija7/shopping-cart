@@ -4,12 +4,13 @@
             <tr>
                 <th>Product</th>
                 <th>Quantity</th>
+                <th>Size</th>
                 <th>Colour</th>
                 <th>Subtotal</th>
             </tr>
             <tr v-for="product in cartProducts" :key="product.id">
                 <td><div id="product-name">{{product.name}}</div></td>
-                <td><input type="number" v-model="product.quantity" @input="totalPriceCalc(cartProducts)"/></td>
+                <td><input type="number" v-model="product.quantity" @change="totalPriceCalc(cartProducts)"/></td>
                 <td><input type ="text" v-model="product.size"/></td>
                 <td><div id = "product-colour">{{product.colour}}</div></td>
                 <td><div id="product-sub-total">{{product.quantity*product.price}}</div></td>
@@ -17,18 +18,18 @@
             </tr>
         </table>
         <div class="total-price">
-            <table>
+            <table id="price-details">
                 <tr>
                     <td>subTotal</td>
                     <td>{{subTotalPrice}}</td>
                 </tr>
                 <tr>
                     <td>tax:</td>
-                    <td></td>
+                    <td>{{tax}}</td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td>Total Cart Price</td>
+                    <td>{{totalPrice}}</td>
                 </tr>
             </table>
         </div>
@@ -46,31 +47,41 @@ export default Vue.extend({
             cartProducts: [{
                 id:1,
                 name:'reebok-t-shirt',
-                quantity:0,
+                quantity:1,
                 price:450,
                 size:'L',
                 colour:'black',
             },{
-                id:1,
+                id:2,
                 name:'reebok-lower',
-                quantity:0,
+                quantity:1,
                 price:600,
                 size:'L',
                 colour:'black',
             }] as CartItems,
             subTotalPrice : 0 as number,
+            tax: 0 as number,
+            totalPrice : 0,
         }
     },
     methods:{
         subTotalCalc(priceEach:number,quantity:number):number{
             return priceEach*quantity;
         },
-        totalPriceCalc(productArray:CartItem[]){
-            let total=0;
-            productArray.forEach((product) => {
-                total+=product.price*product.quantity;
-            });
-            this.totalPrice=total;
+        totalPriceCalc(productArray:CartItem[],){
+                let total=0;
+                productArray.forEach((product) => {
+                    if(product.quantity>0){
+                        total+=product.price*product.quantity;
+                    }else{
+                        alert('enter the quantity in positive value');
+                        product.quantity=1;
+                    }
+                });
+                this.subTotalPrice=total;
+                this.tax = (15/total)*100;
+                this.totalPrice = this.subTotalPrice+this.tax;
+
         },
         deleteProduct(productId:number){
             this.cartProducts= this.cartProducts.filter((product:CartItem) => product.id!== productId);
