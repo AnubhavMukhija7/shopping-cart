@@ -7,12 +7,13 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-    data(){
-        
-    },
-    methods:{
+    name:'order',
+    // data(){
 
-    }
+    // },
+    // methods:{
+
+    // }
 })
 </script>
 
