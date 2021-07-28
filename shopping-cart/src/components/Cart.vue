@@ -8,10 +8,10 @@
                 <th>Subtotal</th>
             </tr>
             <tr v-for="(product,index) from cartProducts" :key="index">
-                <td><div id="product-name">{{product.title}}</div></td>
+                <td><div id="prodarrayuct-name">{{product.title}}</div></td>
                 <td><input type="number" v-model="product.quantity"></td>
                 <td><div id = "product-colour">{{product.colour}}</div></td>
-                <td><div id="product-sub-total">{{product.quantity*product.price}}</td>
+                <td><div id="product-sub-total">{{product.quantity*product.price}}</div></td>
             </tr>
         </table>
         <div id="total">
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import {CartItems} from '../interface/cartItems-interace';
+import {CartItem, CartItems, productObj} from '../interface/cart-items-interace';
 import Vue from 'vue'
 export default Vue.extend({
     data(){
@@ -34,12 +34,12 @@ export default Vue.extend({
         }
     },
     methods:{
-        subTotalCalc(priceEach,quantity){
+        subTotalCalc(priceEach:number,quantity:number):number{
             return priceEach*quantity;
         },
-        totalPriceCalc(productArray){
+        totalPriceCalc(productArray:CartItem[]):number{
             let total=0;
-            productArray.forEach(product => {
+            productArray.forEach((product) => {
                 total+=product.price*product.quantity;
             });
             return total;
