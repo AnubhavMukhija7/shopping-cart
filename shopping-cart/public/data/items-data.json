@@ -3,18 +3,199 @@
     "id": 1,
     "kind": "content#product",
     "title": "Google Tee Black",
-    "description": "The Black Google Tee is available in unisex sizing.",
+    "description": "",
+    "imageLink": "https://images.bewakoof.com/original/musix-baba-half-sleeve-t-shirt-men-s-printed-t-shirts-384427-1627369762.jpg?tr=q-100",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "color": ["Black", "White", "Maroon", "Blue"],
+    "condition": "new",
+    "gender": "M",
+    "price": {
+      "value": 299,
+      "currency": "₹"
+    },
+    "sizes": ["XS", "S", "L"]
+  },
+  {
+    "id": 384427,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["Black", "White", "Maroon", "Blue"],
+    "title": "Musix Baba Half Sleeve T-Shirt",
+    "gender": "M",
+    "imageLink": "https://media.istockphoto.com/photos/front-of-men-cut-black-tshirt-isolated-on-white-background-picture-id1142212002?k=6&m=1142212002&s=612x612&w=0&h=kUfL77LrIvxSnZ_XhFyPU9EvgJNooZjP6ixzyHk42Ic=",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 399,
+      "currency": "₹"
+    },
+    "sizes": ["XS", "L"]
+  },
+  {
+    "id": 273063,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["Blue", "Black"],
+    "title": "Work Hard Box Half Sleeve T-Shirt",
+    "gender": "M",
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
     "availablePieces": 2,
     "brand": "Google",
-    "color": ["black"],
     "condition": "new",
-    "gender": "M",
     "price": {
-      "value": 21.99,
-      "currency": "USD"
+      "value": 259,
+      "currency": "₹"
+    },
+    "sizes": ["L", "M", "XL"]
+  },
+  {
+    "id": 298553,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["Grey"],
+    "title": "Young Forever Half Sleeve T-Shirt",
+    "gender": "M",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 599,
+      "currency": "₹"
+    },
+    "sizes": ["L", "M"]
+  },
+  {
+    "id": 384447,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["black"],
+    "title": "Batman Armor Half Sleeve T-Shirt (BML)",
+    "gender": "M",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 399,
+      "currency": "₹"
     },
     "sizes": ["L"]
+  },
+  {
+    "id": 106,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["Black", "White"],
+    "title": "Jet Black Half Sleeve T-Shirt",
+    "gender": "M",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 299,
+      "currency": "₹"
+    },
+    "sizes": ["M", "XL"]
+  },
+  {
+    "id": 331783,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["Grey", "Pink"],
+    "title": "Gaming Revolution Half Sleeve T-Shirt Black",
+    "gender": "M",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 299,
+      "currency": "₹"
+    },
+    "sizes": ["L", "M", "XL", "XXL"]
+  },
+  {
+    "id": 283917,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["White", "Green", "Grey", "Pink"],
+    "title": "No Excuses Block Half Sleeve T-Shirt Black",
+    "gender": "M",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 249,
+      "currency": "₹"
+    },
+    "sizes": ["S"]
+  },
+  {
+    "id": 115,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["Yellow", "Green", "Grey", "Pink"],
+    "title": "Navy Blue Half Sleeve T-Shirt",
+    "gender": "M",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 299,
+      "currency": "₹"
+    },
+    "sizes": ["M"]
+  },
+  {
+    "id": 211953,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["Black", "Grey", "Pink"],
+    "title": "Meteor Grey Half Sleeve T-Shirt",
+    "gender": "M",
+    "sp": null,
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 249,
+      "currency": "₹"
+    },
+    "sizes": ["XS", "S"]
+  },
+  {
+    "id": 384610,
+    "description": "",
+    "kind": "T-Shirt",
+    "color": ["Black", "White", "Maroon", "Yellow", "Green", "Grey", "Pink"],
+    "title": "Ride₹ Signage Half Sleeve T-Shirt",
+    "gender": "M",
+    "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
+    "availability": true,
+    "availablePieces": 2,
+    "brand": "Google",
+    "condition": "new",
+    "price": {
+      "value": 269,
+      "currency": "₹"
+    },
+    "sizes": ["XL"]
   }
 ]
