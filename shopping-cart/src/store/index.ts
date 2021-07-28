@@ -1,7 +1,7 @@
-import { User } from "@/interface/users-interface";
-import Vue from "vue";
-import Vuex from "vuex";
-import auth from './modules/auth-module'
+import { User } from '@/interface/users-interface';
+import Vue from 'vue';
+import Vuex from 'vuex';
+import auth from './modules/auth-module';
 Vue.use(Vuex);
 
 //seprate actions/mutations name file
