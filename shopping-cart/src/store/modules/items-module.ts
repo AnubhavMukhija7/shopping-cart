@@ -1,4 +1,5 @@
 import {
+  GetItemsRequest,
   GetItemsResponse,
   getItemsService,
 } from '@/services/get-items-service';
@@ -16,8 +17,8 @@ export default {
     },
   },
   actions: {
-    async getItems(context: any) {
-      const response = await getItemsService();
+    async getItems(context: any, payload: GetItemsRequest) {
+      const response = await getItemsService(payload);
       context.commit('GET_ITEMS', response);
     },
   },

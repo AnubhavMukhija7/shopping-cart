@@ -3,11 +3,18 @@
     <div>
       <h1>Items are :</h1>
       <div class="filters">
-        <h2>Input is <input /></h2>
+        <h2>Input is <input v-model="search" @keydown="getItems" /></h2>
         <div class="sort-by">
           <p>Sort By:</p>
-          <select>
-            <option>Highest to Lowest</option>
+          <select @change="getItems" v-model="sortBy">
+            <!-- <option disabled value="">Choose an option</option> -->
+            <option
+              v-for="(optionValue, index) in sortByList"
+              :value="index"
+              :key="index"
+            >
+              {{ optionValue }}
+            </option>
           </select>
         </div>
       </div>
@@ -50,11 +57,20 @@
                   </li>
                 </ul>
               </div>
-              <button class="buy--btn">ADD TO CART</button>
+              <!-- not working see why? -->
+              <div v-if="item.availability">
+                <button class="buy--btn">ADD TO CART</button>
+              </div>
+              <div v-if="!item.availability">
+                <button class="buy--btn">OUT OF STOCK</button>
+              </div>
             </div>
           </section>
         </li>
       </ul>
+      <div>
+        <h1>Record Not Found</h1>
+      </div>
     </div>
   </div>
 </template>
@@ -62,13 +78,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Items } from '../interface/items-interface';
+import { GetItemsRequest } from '../services/get-items-service';
 export default Vue.extend({
   data() {
     return {
       items: [] as Items,
-      sortBy: '',
-      filter: '',
+      sortBy: 0,
       search: '',
+      sortByList: ['None', 'Highest to Lowest', 'Lowest to Highest'],
     };
   },
   created() {
@@ -76,7 +93,13 @@ export default Vue.extend({
   },
   methods: {
     async getItems() {
-      await this.$store.dispatch('getItems');
+      const req: GetItemsRequest = {
+        search: this.search,
+        sortBy: this.sortBy,
+      };
+      //getting 1 less character in seach
+      console.log(req);
+      await this.$store.dispatch('getItems', req);
       const itemsState = this.$store.state.items;
       this.items = itemsState.items;
     },
