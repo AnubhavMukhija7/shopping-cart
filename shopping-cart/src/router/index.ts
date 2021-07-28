@@ -33,7 +33,7 @@ const routes: Array<RouteConfig> = [
     component : Cart
   },
   {
-    path:"/Order",
+    path:"/order",
     name: "Order",
     component : Order
   }
