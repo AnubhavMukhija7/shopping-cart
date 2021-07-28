@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "email": "amukhija@ex2india.com",
+      "userName": "abc",
+      "phoneNumber": "9811672881",
+      "picture": "",
+      "firstName": "Anubhav",
+      "lastName": "Mukhija",
+      "lastIp": "",
+      "lastLogin": "",
+      "loginCount": 0,
+      "isActive": true,
+      "password": "abc"
+    },
+    {
+      "id": 2,
+      "email": "rbhishnoi@ex2india.com",
+      "userName": "abcd",
+      "phoneNumber": "8799017881",
+      "picture": "",
+      "firstName": "Rahul",
+      "lastName": "Bhishnoi",
+      "lastIp": "",
+      "lastLogin": "",
+      "loginCount": 0,
+      "isActive": true,
+      "password": "abcd"
+    }
+  ]
+}
