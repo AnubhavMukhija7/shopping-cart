@@ -21,11 +21,9 @@ export default {
   },
   actions: {
     //any -context type?? ASK , ALSO CAN ACTION AND MUTATION BE MAPPED because payload have any type in mutation?
-    authUser(context: any, payload: GetUserRequest) {
-      if (!context.user) {
-        const response = getUserService(payload);
-        context.commit('AUTH_USER', response);
-      }
+    async authUser(context: any, payload: GetUserRequest) {
+      const response = await getUserService(payload);
+      context.commit('AUTH_USER', response);
     },
   },
   modules: {},
