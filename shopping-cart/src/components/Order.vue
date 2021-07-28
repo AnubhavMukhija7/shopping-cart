@@ -1,6 +1,7 @@
 <template>
     <div id="Order">
         <payment></payment>
+        <address></address>
         <!--<div v-if="!paymentOptionSelected">
             <label>Select Payment Option</label>
             <div v-for="(option,index) in paymentOptions" :key="index" id="checkboxes">
@@ -15,12 +16,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import payment from './PaymentOptions.vue';
+import address from './Address.vue';
 import {addresses, order} from '../interface/order-interface';
 import {CartItems} from '../interface/cart-items-interace';
 export default Vue.extend({
     name:'order',
     components:{
-        payment
+        payment,
+        address
     },
     data(){
         return {
@@ -30,13 +33,13 @@ export default Vue.extend({
             address:{
                 fullName:'',
                 mobileNo:0,
-                pinCode:0,
-                FlatNo:'',
-                Area:'',
+                flatNo:'',
+                area:'',
                 landmark:'',
-                town:'',
+                city:'',
                 state:'',
                 country:'',
+                pinCode:0,
                 addressType:'',
             },
             paymentDetails:{
