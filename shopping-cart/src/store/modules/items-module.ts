@@ -20,6 +20,7 @@ export default {
       const response = await getItemsService();
       context.commit('GET_ITEMS', response);
     },
+    
   },
   modules: {},
 };

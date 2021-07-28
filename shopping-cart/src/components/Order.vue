@@ -1,33 +1,32 @@
 <template>
     <div id="Order">
-        <payment></payment>
-        <address></address>
-        <!--<div v-if="!paymentOptionSelected">
-            <label>Select Payment Option</label>
-            <div v-for="(option,index) in paymentOptions" :key="index" id="checkboxes">
-                <input type = "checkbox" v-model="orderDetails.paymentDetails.paymentOption" />
-                <label>{{option}}</label>
-            </div>
-            <button v-on="paymentSelected">Continue</button>
-        </div>-->
+        <div v-if="!orderPlaced">
+            <Payment></Payment>
+            <add-address></add-address>
+            <cart-details></cart-details>
+        </div>
+        <div v-else>
+            <p>Your order has been placed successfully</p>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import payment from './PaymentOptions.vue';
-import address from './Address.vue';
-import {addresses, order} from '../interface/order-interface';
+import Payment from './PaymentOptions.vue';
+import Address from './Address.vue';
+import {addressesType, Order} from '../interface/order-interface';
 import {CartItems} from '../interface/cart-items-interace';
 export default Vue.extend({
     name:'order',
     components:{
-        payment,
-        address
+        Payment,
+        'add-address': Address
+        'cart-details':Cart
     },
     data(){
         return {
-        userAddresses:[] as addresses,
+        userAddresses:[] as addressesType,
         paymentOptions:['debitCard','creditCard','netBanking',"UPI",'pay on Delivery'],
         orderDetails:{
             address:{
@@ -44,9 +43,16 @@ export default Vue.extend({
             },
             paymentDetails:{
                 paymentOption:'',
+                paymentMode:'',
+                card:0,
+                cardType:'',
+                cardExpiry:{
+                    month:0,
+                    year:0
+                }
             },
             delieveryDate:'',
-        } as order,
+        } as Order,
         delieveryDate : '',
         paymentOptionSelected:false,
         addressSelected:false,

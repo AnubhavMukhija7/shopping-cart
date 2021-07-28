@@ -1,4 +1,4 @@
-export interface address {
+export interface addressType {
     fullName:string,
     mobileNo:number,
     pinCode:number,
@@ -10,9 +10,9 @@ export interface address {
     addressType:string,
 }
 
-export type addresses= address[];
+export type addressesType= addressType[];
 
-export interface order{
+export interface Order{
     address:{
         fullName:string,
         mobileNo:number,
@@ -26,6 +26,14 @@ export interface order{
     },
     paymentDetails:{
         paymentOption:string,
+        paymentMode:string,
+        card:number,
+        cardType:string,
+        cardExpiry:{
+            month:number,
+            year:number
+        }
+        
     },
     delieveryDate:string,
 }

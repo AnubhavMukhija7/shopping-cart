@@ -1,63 +1,69 @@
 <template>
-
-  <div class="form-group" id="address">
-      <input type="fullName" 
-         class="form-control" 
-         id="inputFullName"
-         v-model="fullName" 
-         placeholder="Flat" required/>
-  <input type="mobileNo" 
-         class="form-control" 
-         id="inputMobileNo" 
-         v-model="mobileNo"
-         placeholder="mobile No." required/>
-  <input type="flatNo" 
-         class="form-control" 
-         id="inputFlat"
-         v-model="flatNo"
-         placeholder="flat No." required/>
-  <input type="area" 
-         class="form-control" 
-         id="inputArea"
-         v-model="area"
-         placeholder="area" required/>
-  <input type="landmark" 
-         class="form-control" 
-         id="inputLandmark"
-         v-model="landmark"
-         placeholder="landmark">  
-  <input type="city" 
-         class="form-control" 
-         id="inputCity"
-         v-model="city"
-         placeholder="City" required/>
-  
-  <input type="state" 
-         class="form-control" 
-         id="inputState" 
-         v-model="state"
-         placeholder="State" required/>
-  <input type="country" 
-         class="form-control" 
-         id="inputCountry" 
-         v-model="country"
-         placeholder="Country" required/>
-  <input type="zip" 
-         class="form-control" 
-         id="inputZip" 
-         v-model="pincode"
-         placeholder="Zip" required/>
-  <input type="addressType"
-         class="form-control"
-         id="addressType"
-         v-model="addressType" required>
-       <button v-on="addAddress">add this address</button>
+<div id="address-details">
+  <div v-if="!addressAdded" class="form-group" >
+       <label>Enter address:</label>
+       <input type="fullName" 
+              class="form-control" 
+              id="inputFullName"
+              v-model="address.fullName" 
+              placeholder="Full Name" required/>
+       <input type="mobileNo" 
+              class="form-control" 
+              id="inputMobileNo" 
+              v-model="address.mobileNo"
+              placeholder="mobile No." required/>
+       <input type="flatNo" 
+              class="form-control" 
+              id="inputFlat"
+              v-model="address.flatNo"
+              placeholder="flat No." required/>
+       <input type="area" 
+              class="form-control" 
+              id="inputArea"
+              v-model="address.area"
+              placeholder="area" required/>
+       <input type="landmark" 
+              class="form-control" 
+              id="inputLandmark"
+              v-model="address.landmark"
+              placeholder="landmark">  
+       <input type="city" 
+              class="form-control" 
+              id="inputCity"
+              v-model="address.city"
+              placeholder="City" required/>
+       
+       <input type="state" 
+              class="form-control" 
+              id="inputState" 
+              v-model="address.state"
+              placeholder="State" required/>
+       <input type="country" 
+              class="form-control" 
+              id="inputCountry" 
+              v-model="address.country"
+              placeholder="Country" required/>
+       <input type="zip" 
+              class="form-control" 
+              id="inputZip" 
+              v-model="address.pincode"
+              placeholder="Zip" required/>
+       <input type="addressType"
+              class="form-control"
+              id="addressType"
+              v-model="address.addressType"
+              placeholder="Home/Office" required>
+       <button v-on:click="addAddress">add this address</button>
+  </div>
+  <div v-if="addressAdded">
+         <p>Address successfully added</p>
+  </div>
 </div>
 </template>
 
 <script lang='ts'>
 import Vue from 'vue'
-import { address } from '../interface/order-interface'
+import { addressType } from '../interface/order-interface'
 export default Vue.extend({
        data(){
               return{
@@ -72,12 +78,13 @@ export default Vue.extend({
                             country:'',
                             pinCode:0,
                             addressType:'',
-                     }as address
+                     }as addressType,
+                     addressAdded:false,
               }
        },
        methods:{
               addAddress(){
-                     this.$emit('addressAdded',this.address);
+                     this.addressAdded=true;
               }
        }
 

@@ -79,7 +79,7 @@ export default Vue.extend({
                     }
                 });
                 this.subTotalPrice=total;
-                this.tax = (15/total)*100;
+                this.tax = Number((15/total)*100);
                 this.totalPrice = this.subTotalPrice+this.tax;
 
         },

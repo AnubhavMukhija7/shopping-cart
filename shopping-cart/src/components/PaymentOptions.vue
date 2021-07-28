@@ -6,7 +6,7 @@
                 <option v-for="(choice,index) in paymentOptions" :key="index" >{{choice}}</option>
             </select>    
         </div>
-        <div v-if="paymentOptionSelected && paymentNotCash">
+        <div v-if="paymentOptionSelected && !paymentCash">
             <form v-if="!submitted">
                 <label>Enter Card Number</label>
                 <input v-model="paymentDetails.cardNumber" required/>
@@ -15,16 +15,15 @@
                 <input v-model="paymentDetails.cardCvv" required/>
                 <br>
                 <label>Enter Expiry Date</label>
-                <input v-model="paymentDetails.cardExpiry.month" required/><p>/</p>
-                <input v-model="paymentDetails.cardExpiry.year" required/>
+                <input v-model="paymentDetails.cardExpiry.month" placeholder="month" required/><p>/</p><input v-model="paymentDetails.cardExpiry.year" placeholder="year" required/>
                 <br>
-                <button v-on.prevent="submittedCard">Submit Card</button>
+                <button v-on:click.prevent="submittedCard">Submit Card</button>
             </form>
             <div v-if="submitted">
                 <p>payment details entered successfully</p>
             </div>
         </div>
-        <div v-if="paymentOptionSelected && (!paymentNotCash || submitted)">
+        <div v-if="paymentOptionSelected && (paymentCash || submitted)">
             <div id="details-entered">
                 <p>payment Mode: {{paymentChoice}}</p>
                 <div v-if="paymentChoice!=='COD'">
@@ -32,7 +31,7 @@
                     <p>card Expiry: {{paymentDetails.cardExpiry.month/paymentDetails.cardExpiry.year}}</p>
                 </div>
             </div>
-            <button v-on="detailsEntered">Continue</button>
+            <p>Payment Details has been successfully added</p>
         </div>
     </div>
 </template>
@@ -54,15 +53,14 @@ export default Vue.extend({
             },
             paymentChoice:'',
             paymentOptionSelected:false,
-            paymentNotCash:true,
+            paymentCash:false,
             submitted:false,
         }
     },
     methods:{
         paymentOpted(){
-            // console.log('1');
             if(this.paymentChoice==='COD'){
-                this.paymentNotCash= false;
+                this.paymentCash= true;
                 this.paymentDetails.paymentMode='COD'
             }
             else{
@@ -88,9 +86,7 @@ export default Vue.extend({
         changePaymentMethod(){
             this.paymentOptionSelected=false;
         },
-        // detailsEntered(){
-        //     this.$emit()
-        // }
+        
     }
 
 })
