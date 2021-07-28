@@ -16,7 +16,6 @@ export default {
     AUTH_USER(state: any, payload: GetUserResponse) {
       state.user = payload.data;
       state.message = payload.message;
-      console.log('payload is : ', payload);
     },
   },
   actions: {

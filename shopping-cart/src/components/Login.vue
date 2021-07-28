@@ -149,9 +149,10 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import { GetUserRequest } from '../services/get-user-service';
 
-export default {
+export default Vue.extend({
   name: 'auth',
   data() {
     return {
@@ -160,7 +161,6 @@ export default {
       errors: [],
     };
   },
-
   methods: {
     async loginHandler() {
       this.errors = [];
@@ -184,7 +184,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style scoped lang="css">

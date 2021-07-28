@@ -7,24 +7,23 @@ export interface GetUserRequest {
 }
 
 export interface GetUserResponse {
-  // undefined ?? Solution if want to pass empty {}
   data: User | Record<string, string>;
   message: Message;
+}
+
+export interface Response {
+  data: Users;
 }
 
 export const getUserService = async (
   payload: GetUserRequest
 ): Promise<GetUserResponse> => {
-  const response = await fetch('/data/user-data.json');
-  console.log(response);
-
-  const data: Users = await response.json();
-  console.log(data);
-  const user = data.find(
+  const response = await fetch('data/users-data.json');
+  const data: Response = await response.json();
+  const user = data.data.find(
     (user) =>
       user.userName === payload.username && user.password === payload.password
   );
-  console.log('user', user);
   return {
     data: user ? user : {},
     message: user ? 'Success' : 'Error',
