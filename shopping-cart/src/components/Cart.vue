@@ -1,5 +1,6 @@
 <template>
     <div id="cart" class="cart-page">
+        <h2>Cart</h2>
         <table id="product-details">
             <tr>
                 <th>Product</th>
@@ -13,7 +14,7 @@
                 <td><input type="number" v-model="product.quantity" @change="update"/></td>
                 <td><input type ="text" v-model="product.size" @change="update"/></td>
                 <td><div id = "product-colour">{{product.colour}}</div></td>
-                <td><div id="product-sub-total">{{product.quantity*product.price}}</div></td>
+                <td><div id="product-sub-total">{{product.quantity*product.price.value}} {{product.price.currency}}</div></td>
                 <td><button @click="deleteProduct(product.id)">delete this product</button></td>
             </tr>
         </table>
@@ -45,35 +46,27 @@ export default Vue.extend({
     data(){
         return{
             cartProducts: [] as CartItems,
+            subTotal:0 as number,
+            tax:0 as number,
+            totalPrice:0 as number,
         }
     },
     methods:{
         getCartDetails(){
             this.cartProducts = this.$store.state.cart.cartItems;
+            this.subTotal = this.$store.state.cart.subTotal;
+            this.tax=this.$store.state.cart.tax
+            this.totalPrice =this.$store.state.cart.totalPrice;
             console.log(this.cartProducts);
         },
         subTotalCalc(priceEach:number,quantity:number):number{
             return priceEach*quantity;
         },
-        totalPriceCalc(productArray:CartItem[],){
-                let total=0;
-                productArray.forEach((product) => {
-                    if(product.quantity>0){
-                        total+=product.price*product.quantity;
-                    }else{
-                        alert('enter the quantity in positive value');
-                        product.quantity=1;
-                    }
-                });
-                this.subTotalPrice=total;
-                this.tax = Number((12/100)*total);
-                this.totalPrice = this.subTotalPrice+this.tax;
-        },
         deleteProduct(productId:number){
-            this.cartProducts= this.cartProducts.filter((product:CartItem) => product.id!== productId);
+            this.$store.dispatch('deleteProduct',productId);
         },
         update(){
-            this.$store.dispatch('updateProducts',this.cartProducts)
+            this.$store.dispatch('updateProducts',this.cartProducts);
         }
     },
     created(){
