@@ -22,7 +22,7 @@
             <table id="price-details">
                 <tr>
                     <td>subTotal</td>
-                    <td>{{subTotalPrice}}</td>
+                    <td>{{subTotal}}</td>
                 </tr>
                 <tr>
                     <td>tax:</td>
@@ -56,14 +56,12 @@ export default Vue.extend({
     },
     computed:{
         cartProducts(){
-            console.log(this.$store.state.cart.cartItems);
             return this.$store.state.cart.cartItems;
         },
-        subTotalPrice(){
-            return this.$store.state.cart.subTotal;
+        subTotal(){
+            return this.$store.state.cart.subTotalPrice;
         },
         taxOnCart(){
-            
             return this.$store.state.cart.tax;
         },
         totalCartPrice(){

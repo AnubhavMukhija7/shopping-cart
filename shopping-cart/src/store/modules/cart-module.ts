@@ -11,7 +11,7 @@ export default{
     },
     mutations:{
         ADD_ITEMS(state:any,payload:any){
-            state.cartItems.push(payload);
+            state.cartItems.push(payload);            
         },
         UPDATE_ITEMS(state:any,payload:any){
                 state.cartItems=payload;
@@ -25,14 +25,13 @@ export default{
                         product.quantity=1;
                     }
                 });
+                console.log(total);
                 state.subTotalPrice=total;
                 state.tax = (12/100)*total;
-
                 state.totalPrice = state.subTotalPrice+state.tax;
         },
         DELETE_ITEMS(state:any,productId:number){
             state.cartItems= state.cartItems.filter((product:CartItem) => product.id!== productId);
-            
         }
     },
     actions:{
@@ -43,7 +42,6 @@ export default{
             context.commit('UPDATE_ITEMS',payload)
         },
         deleteProduct(context:any,productId:number){
-
             context.commit('DELETE_ITEMS',productId);
         }
     },
