@@ -3,7 +3,6 @@
         <div v-if="!orderPlaced">
             <Payment></Payment>
             <add-address></add-address>
-            <cart-details></cart-details>
         </div>
         <div v-else>
             <p>Your order has been placed successfully</p>
