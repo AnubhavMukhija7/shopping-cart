@@ -17,12 +17,19 @@ export default {
       state.user = payload.data;
       state.message = payload.message;
     },
+    CLEAR_STATE(state: any) {
+      state.user = {};
+      state.message = '';
+    },
   },
   actions: {
     //any -context type?? ASK , ALSO CAN ACTION AND MUTATION BE MAPPED because payload have any type in mutation?
     async authUser(context: any, payload: GetUserRequest) {
       const response = await getUserService(payload);
       context.commit('AUTH_USER', response);
+    },
+    clearState(context: any) {
+      context.commit('CLEAR_STATE');
     },
   },
   modules: {},
