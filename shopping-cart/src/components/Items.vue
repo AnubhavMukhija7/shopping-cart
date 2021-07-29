@@ -114,7 +114,6 @@ export default Vue.extend({
         colour: 'black',
       };
       await this.$store.dispatch('addItems', req);
-      this.$router.push('/cart');
     },
   },
 });

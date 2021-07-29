@@ -26,11 +26,11 @@
                 </tr>
                 <tr>
                     <td>tax:</td>
-                    <td>{{tax}}</td>
+                    <td>{{taxOnCart}}</td>
                 </tr>
                 <tr>
                     <td>Total Cart Price</td>
-                    <td>{{totalPrice}}</td>
+                    <td>{{totalCartPrice}}</td>
                 </tr>
             </table>
         </div>
@@ -43,22 +43,7 @@
 import {CartItem, CartItems} from '../interface/cart-items-interace';
 import Vue from 'vue'
 export default Vue.extend({
-    data(){
-        return{
-            cartProducts: [] as CartItems,
-            subTotal:0 as number,
-            tax:0 as number,
-            totalPrice:0 as number,
-        }
-    },
     methods:{
-        getCartDetails(){
-            this.cartProducts = this.$store.state.cart.cartItems;
-            this.subTotal = this.$store.state.cart.subTotal;
-            this.tax=this.$store.state.cart.tax
-            this.totalPrice =this.$store.state.cart.totalPrice;
-            console.log(this.cartProducts);
-        },
         subTotalCalc(priceEach:number,quantity:number):number{
             return priceEach*quantity;
         },
@@ -69,9 +54,22 @@ export default Vue.extend({
             this.$store.dispatch('updateProducts',this.cartProducts);
         }
     },
-    created(){
-        this.getCartDetails();
-    },
+    computed:{
+        cartProducts(){
+            console.log(this.$store.state.cart.cartItems);
+            return this.$store.state.cart.cartItems;
+        },
+        subTotalPrice(){
+            return this.$store.state.cart.subTotal;
+        },
+        taxOnCart(){
+            
+            return this.$store.state.cart.tax;
+        },
+        totalCartPrice(){
+            return this.$store.state.cart.totalPrice;
+        }
+    }
 });
 </script>
 

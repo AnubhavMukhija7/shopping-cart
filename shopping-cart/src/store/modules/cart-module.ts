@@ -26,13 +26,13 @@ export default{
                     }
                 });
                 state.subTotalPrice=total;
-                state.tax = Number((12/100)*total);
+                state.tax = (12/100)*total;
+
                 state.totalPrice = state.subTotalPrice+state.tax;
         },
         DELETE_ITEMS(state:any,productId:number){
-            console.log(productId);
             state.cartItems= state.cartItems.filter((product:CartItem) => product.id!== productId);
-            console.log(state.cartItems);
+            
         }
     },
     actions:{
