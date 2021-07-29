@@ -13,41 +13,63 @@
           <th>Product</th>
           <th>Quantity</th>
           <th>Size</th>
-          <th>Colour</th>
+          <th>Color</th>
           <th>Subtotal</th>
+          <th>Remove from cart</th>
         </tr>
         <tr v-for="product in cartProducts" :key="product.id">
           <td>
-            <div id="product-name">{{ product.name }}</div>
+            <div id="product-name">{{ product.title }}</div>
           </td>
           <td>
-            <input type="number" v-model="product.quantity" @change="update" />
+            <input
+              type="number"
+              v-model="product.quantitySelected"
+              @change="update"
+            />
           </td>
-          <td><input type="text" v-model="product.size" @change="update" /></td>
           <td>
+            <select v-model="product.sizeSelected" @change="update">
+              <option
+                v-for="(size, index) in product.sizes"
+                :value="size"
+                :key="index"
+              >
+                {{ size }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <select v-model="product.colorSelected" @change="update">
+              <option
+                v-for="(color, index) in product.color"
+                :value="color"
+                :key="index"
+              >
+                {{ color }}
+              </option>
+            </select>
             <div id="product-colour">{{ product.colour }}</div>
           </td>
           <td>
             <div id="product-sub-total">
-              {{ product.quantity * product.price.value }}
               {{ product.price.currency }}
+              {{ product.subTotalPrice }}
             </div>
           </td>
           <td>
-            <button @click="deleteProduct(product.id)">
-              delete this product
-            </button>
+            <button @click="deleteProduct(product.id)">Remove</button>
           </td>
         </tr>
       </table>
       <div class="total-price">
         <table id="price-details">
           <tr>
-            <td>subTotal</td>
+            <td>SubTotal</td>
             <td>{{ subTotal }}</td>
           </tr>
           <tr>
-            <td>tax:</td>
+            <td>Tax:</td>
             <td>{{ taxOnCart }}</td>
           </tr>
           <tr>
@@ -71,10 +93,10 @@ export default Vue.extend({
       return priceEach * quantity;
     },
     deleteProduct(productId: number) {
-      this.$store.dispatch('deleteProduct', productId);
+      this.$store.dispatch('deleteItem', productId);
     },
     update() {
-      this.$store.dispatch('updateProducts', this.cartProducts);
+      this.$store.dispatch('updateItem', this.cartProducts);
     },
   },
   computed: {

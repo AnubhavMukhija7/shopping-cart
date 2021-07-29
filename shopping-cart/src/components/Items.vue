@@ -122,18 +122,15 @@ export default Vue.extend({
       this.errors = [];
       this.itemSelected = item.id;
       const req = {
-        id: item.id,
-        name: item.title,
-        price: item.price,
-        size: this.sizeSelected,
-        quantity: 1,
-        availableQuantity: item.availablePieces,
-        colour: this.colorSelected,
+        ...item,
+        sizeSelected: this.sizeSelected,
+        quantitySelected: 1,
+        colorSelected: this.colorSelected,
       };
       if (this.sizeSelected === '') this.errors.push('Select Size');
       if (this.colorSelected === '') this.errors.push('Select Color');
       if (this.errors.length === 0) {
-        await this.$store.dispatch('addItems', req);
+        await this.$store.dispatch('addItem', req);
         this.$router.push('/cart');
       }
     },
