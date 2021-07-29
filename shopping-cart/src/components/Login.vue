@@ -184,6 +184,13 @@ export default Vue.extend({
       }
     },
   },
+  mounted() {
+    window.onpopstate = () => {
+      if (this.$store.state.auth.user !== null && this.$route.path == '/') {
+        this.$router.push('/items');
+      }
+    };
+  },
 });
 </script>
 

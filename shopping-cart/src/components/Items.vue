@@ -57,10 +57,12 @@
                 </ul>
               </div>
               <div v-if="item.availability">
-                <button class="buy--btn">ADD TO CART</button>
+                <button @click="addCartHandler(item)" class="buy--btn">
+                  ADD TO CART
+                </button>
               </div>
               <div v-if="!item.availability">
-                <button class="buy--btn">OUT OF STOCK</button>
+                <button disabled class="buy--btn">OUT OF STOCK</button>
               </div>
             </div>
           </section>
@@ -75,7 +77,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Items } from '../interface/items-interface';
+import { Item, Items } from '../interface/items-interface';
 import { GetItemsRequest } from '../services/get-items-service';
 export default Vue.extend({
   data() {
@@ -100,6 +102,18 @@ export default Vue.extend({
       await this.$store.dispatch('getItems', req);
       const itemsState = this.$store.state.items;
       this.items = itemsState.items;
+    },
+    async addCartHandler(item: Item) {
+      const req = {
+        id: item.id,
+        name: item.title,
+        price: item.price,
+        size: 'L',
+        quantity: 1,
+        availableQuantity: item.availablePieces,
+        colour: 'black',
+      };
+      await this.$store.dispatch('addItems', req);
     },
   },
 });
