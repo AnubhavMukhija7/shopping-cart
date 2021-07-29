@@ -3,11 +3,10 @@
     <div>
       <h1>Items are :</h1>
       <div class="filters">
-        <h2>Input is <input v-model="search" @keydown="getItems" /></h2>
+        <h2>Input is <input v-model="search" @keyup="getItems" /></h2>
         <div class="sort-by">
           <p>Sort By:</p>
           <select @change="getItems" v-model="sortBy">
-            <!-- <option disabled value="">Choose an option</option> -->
             <option
               v-for="(optionValue, index) in sortByList"
               :value="index"
@@ -57,7 +56,6 @@
                   </li>
                 </ul>
               </div>
-              <!-- not working see why? -->
               <div v-if="item.availability">
                 <button class="buy--btn">ADD TO CART</button>
               </div>
@@ -68,7 +66,7 @@
           </section>
         </li>
       </ul>
-      <div>
+      <div v-if="items.length < 1">
         <h1>Record Not Found</h1>
       </div>
     </div>
