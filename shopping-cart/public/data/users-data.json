@@ -12,7 +12,14 @@
       "lastLogin": "",
       "loginCount": 0,
       "isActive": true,
-      "password": "abc"
+      "password": "abc",
+      "prime": true,
+      "addressOne": "",
+      "addressTwo": "",
+      "city": "Delhi",
+      "country": "India",
+      "pinCode": "110034",
+      "state": "New Delhi"
     },
     {
       "id": 2,
@@ -26,7 +33,14 @@
       "lastLogin": "",
       "loginCount": 0,
       "isActive": true,
-      "password": "abcd"
+      "password": "abcd",
+      "prime": false,
+      "addressOne": "",
+      "addressTwo": "",
+      "city": "",
+      "country": "",
+      "pinCode": "",
+      "state": ""
     }
   ]
 }

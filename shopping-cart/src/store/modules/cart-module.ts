@@ -40,21 +40,22 @@ export default {
         }
       }
     },
-    UPDATE_ITEM(state: any, payload: Item) {
-      state.cartItems = payload;
-      const total = 0;
-      const productArray = state.cartItems;
-      //   productArray.forEach((product: Items) => {
-      //     if (product.quantity > 0) {
-      //       total += product.price * product.quantity;
-      //     } else {
-      //       alert('enter the quantity in positive value');
-      //       product.quantity = 1;
-      //     }
-      //   });
-      console.log(total);
+    UPDATE_ITEM(state: any, payload: CartItem) {
+      state.cartItems.forEach((item: CartItem) => {
+        if (item.cartItemId === payload.cartItemId) {
+          item.subTotalPrice = payload.price.value * payload.quantitySelected;
+          item = payload;
+        }
+      });
+    },
+    GET_AMOUNT(state: any) {
+      let total = 0;
+      state.cartItems.forEach(
+        (product: CartItem) =>
+          (total += product.price.value * product.quantitySelected)
+      );
       state.subTotalPrice = total;
-      state.tax = (12 / 100) * total;
+      state.tax = Math.round((12 / 100) * total);
       state.totalPrice = state.subTotalPrice + state.tax;
     },
     DELETE_ITEM(state: any, productId: string) {
@@ -72,6 +73,9 @@ export default {
     },
     deleteItem(context: any, payload: number) {
       context.commit('DELETE_ITEM', payload);
+    },
+    getAmount(context: any) {
+      context.commit('GET_AMOUNT');
     },
   },
 };

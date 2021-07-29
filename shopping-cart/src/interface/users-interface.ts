@@ -10,7 +10,14 @@ export interface User {
   lastLogin: string | null;
   loginCount: number;
   isActive: boolean;
-  password:string;
+  password: string;
+  prime: boolean;
+  addressOne: string;
+  addressTwo: string;
+  city: string;
+  country: string;
+  pinCode: string;
+  state: string;
 }
 
 export type Users = User[];
