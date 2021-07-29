@@ -1,5 +1,6 @@
 import { CartItem, CartItems } from '@/interface/cart-items-interace';
 import { Item } from '@/interface/items-interface';
+import uniqid from 'uniqid';
 
 export default {
   state: {
@@ -10,9 +11,10 @@ export default {
   },
   mutations: {
     ADD_ITEM(state: any, payload: CartItem) {
+      const cartItemId = uniqid('cartItem-');
       if (state.cartItems.length < 1) {
         const subTotalPrice = payload.price.value * payload.quantitySelected;
-        payload = { ...payload, subTotalPrice };
+        payload = { ...payload, subTotalPrice, cartItemId };
         state.cartItems.push(payload);
       } else {
         let isPresent = false;
@@ -24,7 +26,8 @@ export default {
           ) {
             isPresent = true;
             item.quantitySelected += payload.quantitySelected;
-            if (item.subTotalPrice) {
+            if (item.subTotalPrice && item.cartItemId) {
+              item.cartItemId = cartItemId;
               item.subTotalPrice +=
                 payload.price.value * payload.quantitySelected;
             }
@@ -32,7 +35,7 @@ export default {
         });
         if (!isPresent) {
           const subTotalPrice = payload.price.value * payload.quantitySelected;
-          payload = { ...payload, subTotalPrice };
+          payload = { ...payload, subTotalPrice, cartItemId };
           state.cartItems.push(payload);
         }
       }
@@ -54,9 +57,9 @@ export default {
       state.tax = (12 / 100) * total;
       state.totalPrice = state.subTotalPrice + state.tax;
     },
-    DELETE_ITEM(state: any, productId: number) {
+    DELETE_ITEM(state: any, productId: string) {
       state.cartItems = state.cartItems.filter(
-        (product: CartItem) => product.id !== productId
+        (product: CartItem) => product.cartItemId !== productId
       );
     },
   },

@@ -58,7 +58,7 @@
             </div>
           </td>
           <td>
-            <button @click="deleteProduct(product.id)">Remove</button>
+            <button @click="deleteProduct(product.cartItemId)">Remove</button>
           </td>
         </tr>
       </table>
@@ -92,7 +92,7 @@ export default Vue.extend({
     subTotalCalc(priceEach: number, quantity: number): number {
       return priceEach * quantity;
     },
-    deleteProduct(productId: number) {
+    deleteProduct(productId: string) {
       this.$store.dispatch('deleteItem', productId);
     },
     update() {
