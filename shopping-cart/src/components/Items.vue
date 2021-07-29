@@ -97,8 +97,6 @@ export default Vue.extend({
         search: this.search,
         sortBy: this.sortBy,
       };
-      //getting 1 less character in seach
-      console.log(req);
       await this.$store.dispatch('getItems', req);
       const itemsState = this.$store.state.items;
       this.items = itemsState.items;
