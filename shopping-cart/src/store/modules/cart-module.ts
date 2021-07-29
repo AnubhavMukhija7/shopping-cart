@@ -6,19 +6,23 @@ export default{
     state:{
         cartItems:[] as CartItems,
         subTotalPrice : 0 as number,
-            tax: 0 as number,
-            totalPrice : 0,
+        tax: 0 as number,
+        totalPrice : 0,
     },
     mutation:{
         ADD_ITEMS(state:any,payload:any){
             state.cartItems.push(payload.data);
         },
-        UPDATE_ITEMS(){
-        }
+        UPDATE_ITEMS(state:any,payload:any){
+            state.cartItems = payload;
+        },
     },
     actions:{
         addItems(context:any,payload:any){
             context.commit('ADD_ITEMS',payload)
+        },
+        updateProducts(context:any,payload:any){
+            context.commit('UPDATE_ITEMS',payload)
         }
     },
     

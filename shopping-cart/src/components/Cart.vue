@@ -10,8 +10,8 @@
             </tr>
             <tr v-for="product in cartProducts" :key="product.id">
                 <td><div id="product-name">{{product.name}}</div></td>
-                <td><input type="number" v-model="product.quantity" @change="totalPriceCalc(cartProducts)"/></td>
-                <td><input type ="text" v-model="product.size"/></td>
+                <td><input type="number" v-model="product.quantity" @change="update"/></td>
+                <td><input type ="text" v-model="product.size" @change="update"/></td>
                 <td><div id = "product-colour">{{product.colour}}</div></td>
                 <td><div id="product-sub-total">{{product.quantity*product.price}}</div></td>
                 <td><button @click="deleteProduct(product.id)">delete this product</button></td>
@@ -45,7 +45,6 @@ export default Vue.extend({
     data(){
         return{
             cartProducts: [] as CartItems,
-            
         }
     },
     methods:{
@@ -72,6 +71,9 @@ export default Vue.extend({
         deleteProduct(productId:number){
             this.cartProducts= this.cartProducts.filter((product:CartItem) => product.id!== productId);
         },
+        update(){
+            this.$store.dispatch('updateProducts',this.cartProducts)
+        }
     },
     created(){
         this.getCartDetails();
