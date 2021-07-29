@@ -83,10 +83,6 @@ export default Vue.extend({
                 console.log(this.paymentDetails);
             }
         },
-        changePaymentMethod(){
-            this.paymentOptionSelected=false;
-        },
-        
     }
 
 })

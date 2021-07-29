@@ -22,37 +22,11 @@ export default Vue.extend({
     components:{
         Payment,
         'add-address': Address
-        'cart-details':Cart
     },
     data(){
         return {
         userAddresses:[] as addressesType,
         paymentOptions:['debitCard','creditCard','netBanking',"UPI",'pay on Delivery'],
-        orderDetails:{
-            address:{
-                fullName:'',
-                mobileNo:0,
-                flatNo:'',
-                area:'',
-                landmark:'',
-                city:'',
-                state:'',
-                country:'',
-                pinCode:0,
-                addressType:'',
-            },
-            paymentDetails:{
-                paymentOption:'',
-                paymentMode:'',
-                card:0,
-                cardType:'',
-                cardExpiry:{
-                    month:0,
-                    year:0
-                }
-            },
-            delieveryDate:'',
-        } as Order,
         delieveryDate : '',
         paymentOptionSelected:false,
         addressSelected:false,
