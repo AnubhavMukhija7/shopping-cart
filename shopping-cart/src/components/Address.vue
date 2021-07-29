@@ -53,7 +53,7 @@
               id="addressType"
               v-model="address.addressType"
               placeholder="Home/Office" required>
-       <button v-on:click="addAddress">add this address</button>
+       <button v-on:click="addAddress">deliever to this address</button>
   </div>
   <div v-if="addressAdded">
          <p>Address successfully added</p>

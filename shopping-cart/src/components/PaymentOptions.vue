@@ -80,7 +80,6 @@ export default Vue.extend({
             }else{
                 this.submitted=true;
                 this.paymentOptionSelected=true;
-                console.log(this.paymentDetails);
             }
         },
     }

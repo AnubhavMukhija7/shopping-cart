@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export const store= new Vuex.Store({
+export default{
     state:{
         orderDetails:{
             address:{
@@ -31,5 +31,11 @@ export const store= new Vuex.Store({
             },
             delieveryDate:'',
         } as Order
+    },
+    mutations:{
+
+    },
+    actions:{
+
     }
-})
+}

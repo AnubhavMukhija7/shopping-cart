@@ -44,27 +44,14 @@ import Vue from 'vue'
 export default Vue.extend({
     data(){
         return{
-            cartProducts: [{
-                id:1,
-                name:'reebok-t-shirt',
-                quantity:1,
-                price:450,
-                size:'L',
-                colour:'black',
-            },{
-                id:2,
-                name:'reebok-lower',
-                quantity:1,
-                price:600,
-                size:'L',
-                colour:'black',
-            }] as CartItems,
-            subTotalPrice : 0 as number,
-            tax: 0 as number,
-            totalPrice : 0,
+            cartProducts: [] as CartItems,
+            
         }
     },
     methods:{
+        getCartDetails(){
+            this.cartProducts = this.$store.state.cartItems;
+        },
         subTotalCalc(priceEach:number,quantity:number):number{
             return priceEach*quantity;
         },
@@ -79,16 +66,16 @@ export default Vue.extend({
                     }
                 });
                 this.subTotalPrice=total;
-                this.tax = Number((15/total)*100);
+                this.tax = Number((12/100)*total);
                 this.totalPrice = this.subTotalPrice+this.tax;
-
         },
         deleteProduct(productId:number){
             this.cartProducts= this.cartProducts.filter((product:CartItem) => product.id!== productId);
-        }
+        },
     },
-    computed:{
-    }
+    created(){
+        this.getCartDetails();
+    },
 });
 </script>
 
