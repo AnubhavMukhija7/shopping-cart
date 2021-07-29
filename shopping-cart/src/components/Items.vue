@@ -4,6 +4,27 @@
       <h1>Items are :</h1>
       <div class="filters">
         <h2>Input is <input v-model="search" @keyup="getItems" /></h2>
+        <div v-if="filterButton">
+          <button @click="applyFilter">apply Filters</button>
+        </div>
+        <div id="filters" v-if="filterActive" class="filter-by">
+          <p>Filter By:</p>
+          <div v-for="(filterValue,index) in filterByList" :key="index">
+            <input type="checkbox"  v-model="appliedFilters" :id="'filter'+filterValue" :value="filterValue"/><label>{{filterValue}}</label>
+          </div>
+          <button type="submit" @click="getItems">Apply</button>
+
+          <!--<select @change="getItems" v-model="filterBy">
+            <p>Filter:-</p>
+            <option
+            v-for="(filterValue,index) in filterByList"
+            :value="index"
+            :key="index"
+            >
+            {{ filterValue }}
+            </option>
+          </select>-->
+        </div>
         <div class="sort-by">
           <p>Sort By:</p>
           <select @change="getItems" v-model="sortBy">
@@ -16,7 +37,9 @@
             </option>
           </select>
         </div>
+        
       </div>
+      <div v-if="addCartSuccessful">Item added to cart successfully</div>
       <ul class="item-container" v-if="items.length > 0">
         <li v-for="(item, index) in items" :key="index">
           <section class="product">
@@ -25,7 +48,7 @@
                 <div class="photo-main">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHw5sRAd60tt5YzCW7fHlQfKpXhXJtjOy28Q&usqp=CAU"
-                    alt="green apple slice"
+                    alt="product"
                   />
                 </div>
               </div>
@@ -45,7 +68,7 @@
                 <ul class="color">
                   <li
                     v-for="(color, index) in item.color"
-                    @click="colorSelected = color"
+                    @click="colorSelected=color"
                     :key="index"
                   >
                     {{ color }}
@@ -57,7 +80,7 @@
                 <ul class="sizes">
                   <li
                     v-for="(size, index) in item.sizes"
-                    @click="sizeSelected = size"
+                    @click="sizeSelected=size;"
                     :key="index"
                   >
                     {{ size }}
@@ -98,10 +121,15 @@ export default Vue.extend({
       items: [] as Items,
       sortBy: 0,
       search: '',
+      filterActive:false,
+      filterButton:true,
+      appliedFilters:[],
+      // filterBy:[],
       sizeSelected: '',
       colorSelected: '',
       itemSelected: 0,
-      sortByList: ['None', 'Highest to Lowest', 'Lowest to Highest'],
+      sortByList: ['Default', 'Highest to Lowest', 'Lowest to Highest'],
+      filterByList :['Default','Include Out of Stock','Male Products','Female Products'],
       errors: [],
     };
   },
@@ -113,6 +141,7 @@ export default Vue.extend({
       const req: GetItemsRequest = {
         search: this.search,
         sortBy: this.sortBy,
+        filterBy : this.appliedFilters
       };
       await this.$store.dispatch('getItems', req);
       const itemsState = this.$store.state.items;
@@ -130,9 +159,15 @@ export default Vue.extend({
       if (this.sizeSelected === '') this.errors.push('Select Size');
       if (this.colorSelected === '') this.errors.push('Select Color');
       if (this.errors.length === 0) {
+        setTimeout(()=>{
+          this.addCartSuccessful=true;
+        },200);
         await this.$store.dispatch('addItem', req);
-        this.$router.push('/cart');
       }
+    },
+    applyFilter(){
+      this.filterActive=true;
+      this.filterButton=false;
     },
   },
 });
@@ -160,6 +195,11 @@ export default Vue.extend({
   display: flex;
   gap: 20px;
   align-items: center;
+}
+.filter-by{
+  display: flex;
+  gap :20px;
+  align-items:center;
 }
 .item-container li {
   list-style-type: none;
@@ -204,6 +244,9 @@ export default Vue.extend({
 }
 .buy--btn:active {
   transform: scale(0.97);
+}
+.product--color:active{
+  background-color: black;
 }
 input {
   font-size: 18px;
