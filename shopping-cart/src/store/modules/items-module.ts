@@ -21,7 +21,6 @@ export default {
       const response = await getItemsService(payload);
       context.commit('GET_ITEMS', response);
     },
-    
   },
   modules: {},
 };
