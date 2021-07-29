@@ -11,7 +11,7 @@ export default{
     },
     mutations:{
         ADD_ITEMS(state:any,payload:any){
-            state.cartItems.push(payload.data);
+            state.cartItems.push(payload);
         },
         UPDATE_ITEMS(state:any,payload:any){
             state.cartItems = payload;

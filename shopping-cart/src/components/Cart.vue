@@ -1,5 +1,6 @@
 <template>
     <div id="cart" class="cart-page">
+        <h2>Cart</h2>
         <table id="product-details">
             <tr>
                 <th>Product</th>
@@ -13,7 +14,7 @@
                 <td><input type="number" v-model="product.quantity" @change="update"/></td>
                 <td><input type ="text" v-model="product.size" @change="update"/></td>
                 <td><div id = "product-colour">{{product.colour}}</div></td>
-                <td><div id="product-sub-total">{{product.quantity*product.price}}</div></td>
+                <td><div id="product-sub-total">{{product.quantity*product.price.value}} {{product.price.currency}}</div></td>
                 <td><button @click="deleteProduct(product.id)">delete this product</button></td>
             </tr>
         </table>
