@@ -56,7 +56,6 @@
                   </li>
                 </ul>
               </div>
-              <!-- not working see why? -->
               <div v-if="item.availability">
                 <button class="buy--btn">ADD TO CART</button>
               </div>
