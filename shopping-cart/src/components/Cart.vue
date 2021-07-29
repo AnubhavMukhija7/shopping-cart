@@ -49,7 +49,8 @@ export default Vue.extend({
     },
     methods:{
         getCartDetails(){
-            this.cartProducts = this.$store.state.cartItems;
+            this.cartProducts = this.$store.state.cart.cartItems;
+            console.log(this.cartProducts);
         },
         subTotalCalc(priceEach:number,quantity:number):number{
             return priceEach*quantity;

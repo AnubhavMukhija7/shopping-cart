@@ -9,7 +9,7 @@ export default{
         tax: 0 as number,
         totalPrice : 0,
     },
-    mutation:{
+    mutations:{
         ADD_ITEMS(state:any,payload:any){
             state.cartItems.push(payload.data);
         },
