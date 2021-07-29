@@ -46,6 +46,9 @@ export default Vue.extend({
     data(){
         return{
             cartProducts: [] as CartItems,
+            subTotal:0 as number,
+            tax:0 as number,
+            totalPrice:0 as number,
         }
     },
     methods:{
