@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './modules/auth-module';
 import items from './modules/items-module';
+import cart from './modules/cart-module';
+import order from './modules/order-module';
 
 Vue.use(Vuex);
 
@@ -14,5 +16,7 @@ export default new Vuex.Store({
   modules: {
     auth,
     items,
+    cart,
+    order,
   },
 });

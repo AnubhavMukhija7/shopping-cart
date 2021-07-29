@@ -43,7 +43,11 @@
               <div class="variant">
                 <h4>SELECT A COLOR</h4>
                 <ul class="color">
-                  <li v-for="(color, index) in item.color" :key="index">
+                  <li
+                    v-for="(color, index) in item.color"
+                    @click="colorSelected = color"
+                    :key="index"
+                  >
                     {{ color }}
                   </li>
                 </ul>
@@ -51,10 +55,19 @@
               <div class="variant">
                 <h4>SELECT SIZE</h4>
                 <ul class="sizes">
-                  <li v-for="(size, index) in item.sizes" :key="index">
+                  <li
+                    v-for="(size, index) in item.sizes"
+                    @click="sizeSelected = size"
+                    :key="index"
+                  >
                     {{ size }}
                   </li>
                 </ul>
+              </div>
+              <div v-if="errors.length > 0 && itemSelected === item.id">
+                <div v-for="(error, index) in errors" :key="index">
+                  {{ error }}
+                </div>
               </div>
               <div v-if="item.availability">
                 <button @click="addCartHandler(item)" class="buy--btn">
@@ -85,7 +98,11 @@ export default Vue.extend({
       items: [] as Items,
       sortBy: 0,
       search: '',
+      sizeSelected: '',
+      colorSelected: '',
+      itemSelected: 0,
       sortByList: ['None', 'Highest to Lowest', 'Lowest to Highest'],
+      errors: [],
     };
   },
   created() {
@@ -102,16 +119,23 @@ export default Vue.extend({
       this.items = itemsState.items;
     },
     async addCartHandler(item: Item) {
+      this.errors = [];
+      this.itemSelected = item.id;
       const req = {
         id: item.id,
         name: item.title,
         price: item.price,
-        size: 'L',
+        size: this.sizeSelected,
         quantity: 1,
         availableQuantity: item.availablePieces,
-        colour: 'black',
+        colour: this.colorSelected,
       };
-      await this.$store.dispatch('addItems', req);
+      if (this.sizeSelected === '') this.errors.push('Select Size');
+      if (this.colorSelected === '') this.errors.push('Select Color');
+      if (this.errors.length === 0) {
+        await this.$store.dispatch('addItems', req);
+        this.$router.push('/cart');
+      }
     },
   },
 });
