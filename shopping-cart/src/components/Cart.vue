@@ -91,14 +91,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { CartItem, CartItems } from '../interface/cart-items-interace';
+import { CartItem } from '../interface/cart-items-interace';
 export default Vue.extend({
   data() {
     return {
-      //   items: [] as CartItems,
-      //   selectedColor: '',
-      //   selectedSize: '',
-      //   selectedQuantity: '',
       outOfStock: false,
       itemSelectedId: '',
     };
@@ -139,12 +135,6 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-.cart-page {
-  margin: 80px auto;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+<style scoped lang="css">
+@import '../assets/css/cart.css';
 </style>

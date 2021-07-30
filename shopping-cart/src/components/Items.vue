@@ -112,7 +112,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { CartItem } from '../interface/cart-items-interace';
 import { Item, Items } from '../interface/items-interface';
 import { GetItemsRequest } from '../services/get-items-service';
 export default Vue.extend({
@@ -126,7 +125,6 @@ export default Vue.extend({
       filterActive: false,
       filterButton: true,
       appliedFilters: [],
-      // filterBy:[],
       sizeSelected: '',
       colorSelected: '',
       itemSelected: 0,
@@ -196,82 +194,6 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-.item-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 50px;
-  margin: auto 20px;
-}
-.photo-main {
-  display: block;
-  width: 100%;
-  height: auto;
-  background-color: rgb(255, 255, 255);
-}
-.filters {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 100px;
-}
-.sort-by {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-.filter-by {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-.item-container li {
-  list-style-type: none;
-  border: 1px solid gray;
-  padding: 10px;
-  border-radius: 10px;
-}
-.color {
-  display: flex;
-  justify-content: center;
-}
-.color li {
-  border: none;
-}
-.color li:hover {
-  color: rgb(213, 210, 243);
-  background: rgb(20, 1, 71);
-}
-.sizes {
-  display: flex;
-  justify-content: center;
-}
-.sizes li {
-  border: none;
-}
-.sizes li:hover {
-  color: rgb(213, 210, 243);
-  background: rgb(20, 1, 71);
-}
-.buy--btn {
-  padding: 1.5em 3.1em;
-  margin: 20px auto;
-  border: none;
-  border-radius: 7px;
-  font-size: 0.8em;
-  font-weight: 700;
-  letter-spacing: 1.3px;
-  color: #fff;
-  background-color: black;
-  box-shadow: 2px 2px 25px -7px grey;
-  cursor: pointer;
-}
-.buy--btn:active {
-  transform: scale(0.97);
-}
-.product--color:active {
-  background-color: black;
-}
-input {
-  font-size: 18px;
-}
+<style scoped lang="css">
+@import '../assets/css/items.css';
 </style>

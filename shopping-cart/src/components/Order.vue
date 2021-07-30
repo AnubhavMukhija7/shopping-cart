@@ -184,27 +184,15 @@
 <script lang="ts">
 import Vue from 'vue';
 import { User } from '../interface/users-interface';
-import validator from 'validator';
+import { monthsArray } from '../assets/constants/months';
+import { validateUser } from '../utils/validateUser';
 export default Vue.extend({
   name: 'order',
   data() {
     return {
       selectPaymentMethod: '',
       cardYearOptions: [],
-      months: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-      ],
+      months: monthsArray,
       card: {
         name: '',
         number: '',
@@ -234,50 +222,6 @@ export default Vue.extend({
     onChange(event) {
       this.selectPaymentMethod = event.target.value;
     },
-    checkUserValidations() {
-      let isUserValid = true;
-      if (this.user.firstName === '') {
-        this.userErrors.push('Enter First Name');
-        isUserValid = false;
-      }
-      if (this.user.lastName === '') {
-        this.userErrors.push('Enter Last Name');
-        isUserValid = false;
-      }
-      if (this.user.email === '') {
-        this.userErrors.push('Enter Email');
-        isUserValid = false;
-      }
-      if (this.user.email !== '' && !validator.isEmail(this.user.email)) {
-        this.userErrors.push(' valid email');
-        isUserValid = false;
-      }
-      if (this.user.phone === '') {
-        this.userErrors.push('Enter Phone');
-        isUserValid = false;
-      }
-      if (this.user.pinCode === '') {
-        this.userErrors.push('Enter PinCode');
-        isUserValid = false;
-      }
-      if (this.user.state === '') {
-        this.userErrors.push('Enter State');
-        isUserValid = false;
-      }
-      if (this.user.city === '') {
-        this.userErrors.push('Enter City');
-        isUserValid = false;
-      }
-      if (this.user.addressOne === '') {
-        this.userErrors.push('Enter Address One');
-        isUserValid = false;
-      }
-      if (this.user.country === '') {
-        this.userErrors.push('Enter Country');
-        isUserValid = false;
-      }
-      return isUserValid;
-    },
     checkPaymentSelected() {
       if (this.selectPaymentMethod === '') {
         this.userErrors.push('Enter Payment Mode');
@@ -285,44 +229,19 @@ export default Vue.extend({
       }
       return true;
     },
-    checkPaymentDetails() {
-      if (this.card.name === '') {
-        this.cardErrors.push('Enter Name');
-      }
-      if (this.card.number === '') {
-        this.cardErrors.push('Enter card');
-      }
-      if (
-        !validator.isCreditCard(this.card.number) &&
-        this.card.number !== ''
-      ) {
-        this.cardErrors.push('Enter valid card number');
-      }
-      if (this.card.expMonth === '0') {
-        this.cardErrors.push('Enter Month');
-      }
-      if (this.card.expYear === '0') {
-        this.cardErrors.push('Enter Year');
-      }
-      if (this.card.cvv.length !== 3 || isNaN(this.card.cvv)) {
-        this.cardErrors.push('Enter valid cvv');
-      }
-      return true;
-    },
     async placeOrder() {
-      this.userErrors = [];
-      this.cardErrors = [];
-      const isUserValid = this.checkUserValidations();
-      if (!isUserValid) {
+      this.userErrors = validateUser(this.user);
+      if (this.userErrors.length > 0) {
         return;
       }
       const isPaymentSelected = this.checkPaymentSelected();
       if (!isPaymentSelected) {
         return;
       }
+
       if (this.selectPaymentMethod !== 'cod') {
-        const isPaymentDetailsValid = this.checkPaymentDetails();
-        if (!isPaymentDetailsValid) {
+        this.cardErrors = this.validateCardDetails(this.card);
+        if (this.cardErrors.length > 0) {
           return;
         }
       }
@@ -387,140 +306,7 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
-body {
-  background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
-  font-family: 'Roboto Condensed', sans-serif;
-  color: #262626;
-  margin: 5% 0;
-}
-.container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
-}
-.d-flex {
-  display: flex;
-  flex-direction: row;
-  background: #f6f6f6;
-  border-radius: 0 0 5px 5px;
-  padding: 25px;
-}
-form {
-  flex: 4;
-}
-.Yorder {
-  flex: 2;
-}
-.title {
-  background: (
-    linear,
-    left top,
-    right bottom,
-    color-stop(0, #5195a8),
-    color-stop(100, #70eaff)
-  );
-  background: -moz-linear-gradient(top left, #5195a8 0%, #70eaff 100%);
-  background: -ms-linear-gradient(top left, #5195a8 0%, #70eaff 100%);
-  background: -o-linear-gradient(top left, #5195a8 0%, #70eaff 100%);
-  background: linear-gradient(to bottom right, #5195a8 0%, #70eaff 100%);
-  border-radius: 5px 5px 0 0;
-  padding: 20px;
-  color: #f6f6f6;
-}
-h2 {
-  margin: 0;
-  padding-left: 15px;
-}
-.required {
-  color: red;
-}
-label,
-table {
-  display: block;
-  margin: 15px;
-}
-label > span {
-  float: left;
-  width: 25%;
-  margin-top: 12px;
-  padding-right: 10px;
-}
-input[type='text'],
-input[type='tel'],
-input[type='email'],
-select {
-  width: 70%;
-  height: 30px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-  border: 1px solid #dadada;
-  color: #888;
-}
-select {
-  width: 72%;
-  height: 45px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-}
-.Yorder {
-  margin-top: 15px;
-  height: 600px;
-  padding: 20px;
-  border: 1px solid #dadada;
-}
-table {
-  margin: 0;
-  padding: 0;
-}
-th {
-  border-bottom: 1px solid #dadada;
-  padding: 10px 0;
-}
-tr > td:nth-child(1) {
-  text-align: left;
-  color: #2d2d2a;
-}
-tr > td:nth-child(2) {
-  text-align: right;
-  color: #52ad9c;
-}
-td {
-  border-bottom: 1px solid #dadada;
-  padding: 25px 25px 25px 0;
-}
-
-p {
-  display: block;
-  color: #888;
-  margin: 0;
-  padding-left: 25px;
-}
-.Yorder > div {
-  padding: 15px 0;
-}
-
-button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 30px;
-  background: #52ad9c;
-  color: #fff;
-  font-size: 15px;
-  font-weight: bold;
-}
-button:hover {
-  cursor: pointer;
-  background: #428a7d;
-}
+<style scoped lang="css">
+@import '../assets/css/order.css';
 </style>
+>
