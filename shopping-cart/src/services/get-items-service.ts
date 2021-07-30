@@ -12,7 +12,7 @@ export interface GetItemsResponse {
 export interface GetItemsRequest {
   search: string;
   sortBy: number;
-  filterBy : number[]|[];
+  filterBy : string[]|[];
 }
 
 export const getItemsService = async (
