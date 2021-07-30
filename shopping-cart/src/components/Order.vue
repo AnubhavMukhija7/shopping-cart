@@ -50,6 +50,13 @@
           <span>Email Address </span>
           <input v-model="user.email" type="email" name="city" />
         </label>
+        <div v-if="userErrors">
+          <ol>
+            <li v-for="(userError, index) in userErrors" :key="index">
+              {{ userError }}
+            </li>
+          </ol>
+        </div>
       </form>
       <form v-else>
         <label>
@@ -64,7 +71,6 @@
           <span>Exp Month </span>
           <select v-model="card.expMonth">
             <option :value="0">Choose Month</option>
-
             <option
               v-for="(month, index) in months"
               :value="month"
@@ -91,6 +97,13 @@
           <span>CVV </span>
           <input v-model="card.cvv" type="text" />
         </label>
+        <div v-if="cardErrors">
+          <ol>
+            <li v-for="(cardError, index) in cardErrors" :key="index">
+              {{ cardError }}
+            </li>
+          </ol>
+        </div>
       </form>
       <div class="Yorder">
         <table>
@@ -191,6 +204,7 @@ export default Vue.extend({
         addressOne: '',
         country: '',
       },
+      orderStatus: false,
       userErrors: [],
       cardErrors: [],
     };
@@ -253,21 +267,26 @@ export default Vue.extend({
       if (this.card.number === '') {
         this.cardErrors.push('Enter card');
       }
-      if (!validator.isCreditCard(this.card.number)) {
+      if (
+        !validator.isCreditCard(this.card.number) &&
+        this.card.number !== ''
+      ) {
         this.cardErrors.push('Enter valid card number');
       }
-      if (this.card.month === '0') {
+      if (this.card.expMonth === '0') {
         this.cardErrors.push('Enter Month');
       }
-      if (this.card.year === '') {
+      if (this.card.expYear === '0') {
         this.cardErrors.push('Enter Year');
       }
-      if (this.card.cvv.length === 3) {
+      if (this.card.cvv.length !== 3 || isNaN(this.card.cvv)) {
         this.cardErrors.push('Enter valid cvv');
       }
       return true;
     },
-    placeOrder() {
+    async placeOrder() {
+      this.userErrors = [];
+      this.cardErrors = [];
       const isUserValid = this.checkUserValidations();
       if (!isUserValid) {
         return;
@@ -284,9 +303,18 @@ export default Vue.extend({
       }
       const req = {
         user: this.user,
+        paymentMode: this.selectPaymentMethod,
+        cardDetails: this.card,
+        items: this.cartProducts,
+        payment: {
+          subTotal: this.subTotal,
+          tax: this.taxOnCart,
+          shipping: this.shipping,
+          total: this.totalCartPrice,
+        },
       };
-      //dispatch Action here to save order... with card details, cod, user details, add delevry time etc...
-      //   this.$store.dispatch('addOrder', req);
+      await this.$store.dispatch('addOrder', req);
+      this.orderStatus = true;
     },
   },
   computed: {
