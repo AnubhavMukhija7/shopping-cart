@@ -19,8 +19,8 @@ export const getItemsService = async (
   payload: GetItemsRequest
 ): Promise<GetItemsResponse> => {
   const response = await fetch('data/items-data.json');
+  console.log(response);
   let items: Items = await response.json();
-  console.log(payload);
   if (payload.search !== '') {
     items = search(items, payload.search);
   }

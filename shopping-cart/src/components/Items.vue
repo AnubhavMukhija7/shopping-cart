@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div>
+    <div v-if="!invalidUser">
+      <div>
+        <h3>Hi {{user}}</h3>
+      </div>
       <h1>Items are :</h1>
       <div class="filters">
         <h2>Input is <input v-model="search" @keyup="getItems" /></h2>
@@ -13,17 +16,6 @@
             <input type="checkbox"  v-model="appliedFilters" :id="'filter'+filterValue" :value="filterValue"/><label>{{filterValue}}</label>
           </div>
           <button type="submit" @click="getItems">Apply</button>
-
-          <!--<select @change="getItems" v-model="filterBy">
-            <p>Filter:-</p>
-            <option
-            v-for="(filterValue,index) in filterByList"
-            :value="index"
-            :key="index"
-            >
-            {{ filterValue }}
-            </option>
-          </select>-->
         </div>
         <div class="sort-by">
           <p>Sort By:</p>
@@ -37,9 +29,7 @@
             </option>
           </select>
         </div>
-        
       </div>
-      <div v-if="addCartSuccessful">Item added to cart successfully</div>
       <ul class="item-container" v-if="items.length > 0">
         <li v-for="(item, index) in items" :key="index">
           <section class="product">
@@ -96,6 +86,7 @@
                 <button @click="addCartHandler(item)" class="buy--btn">
                   ADD TO CART
                 </button>
+                <div id="successful"></div>
               </div>
               <div v-if="!item.availability">
                 <button disabled class="buy--btn">OUT OF STOCK</button>
@@ -108,6 +99,9 @@
         <h1>Record Not Found</h1>
       </div>
     </div>
+    <div v-if="invalidUser">
+      <p>Please login first to check the items</p>
+    </div>
   </div>
 </template>
 
@@ -118,6 +112,8 @@ import { GetItemsRequest } from '../services/get-items-service';
 export default Vue.extend({
   data() {
     return {
+      user:'',
+      invalidUser:true,
       items: [] as Items,
       sortBy: 0,
       search: '',
@@ -129,12 +125,18 @@ export default Vue.extend({
       colorSelected: '',
       itemSelected: 0,
       sortByList: ['Default', 'Highest to Lowest', 'Lowest to Highest'],
-      filterByList :['Default','Include Out of Stock','Male Products','Female Products'],
+      filterByList :['Include Out of Stock','Male Products','Female Products'],
       errors: [],
     };
   },
   created() {
-    this.getItems();
+    if( this.$store.state.auth.user.userName){
+          this.user= this.$store.state.auth.user.firstName;
+          this.invalidUser=false;
+          this.getItems();
+    }else{
+      this.invalidUser=true;
+    }
   },
   methods: {
     async getItems() {
@@ -159,10 +161,8 @@ export default Vue.extend({
       if (this.sizeSelected === '') this.errors.push('Select Size');
       if (this.colorSelected === '') this.errors.push('Select Color');
       if (this.errors.length === 0) {
-        setTimeout(()=>{
-          this.addCartSuccessful=true;
-        },200);
         await this.$store.dispatch('addItem', req);
+        alert('Item added successfully');
       }
     },
     applyFilter(){

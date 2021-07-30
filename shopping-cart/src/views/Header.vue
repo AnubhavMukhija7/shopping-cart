@@ -1,13 +1,20 @@
 <template>
   <nav>
     <ul>
-      <li><router-link to="/items" exact>Explore Items</router-link></li>
-      <li><router-link to="/cart" exact>Go To Cart</router-link></li>
-      <li><router-link to="/order" exact>Your Orders</router-link></li>
-      <li><router-link to="/" exact>Logout</router-link></li>
+      <li><router-link :to="{name:'Items'}" exact>Explore Items</router-link></li>
+      <li><router-link :to="{name:'Cart'}" exact>Go To Cart</router-link></li>
+      <li><router-link :to="{name:'Order'}" exact>Your Orders</router-link></li>
+      <li><router-link :to="{name:'Login'}" exact>Logout</router-link></li>
     </ul>
   </nav>
 </template>
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+
+
+})
+</script>
 <style scoped>
 ul {
   list-style-type: none;
