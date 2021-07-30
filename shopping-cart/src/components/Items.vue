@@ -171,13 +171,20 @@ export default Vue.extend({
       if (this.sizeSelected === '') this.errors.push('Select Size');
       if (this.colorSelected === '') this.errors.push('Select Color');
       if (this.errors.length === 0) {
-        // this.$store.state.items.cartItem.forEach((item as Item) => {
-        //   if(req.id===item.i){
-            
-        //   }
-        // });
-        await this.$store.dispatch('addItem', req);
-        alert('Item added successfully');
+        let cartItems = this.$store.state.cart.cartItems;
+        let itemCheck=0;
+        if(cartItems){
+          cartItems.forEach((addedItems: Item) => {
+            if(addedItems.id===req.id){
+              itemCheck=1;
+              alert('this item is already in cart');
+            }
+          });
+        }
+        if(itemCheck!=1){
+          await this.$store.dispatch('addItem', req);
+          alert('Item added successfully');
+        }
       }
     },
     applyFilter() {

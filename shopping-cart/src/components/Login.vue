@@ -176,7 +176,7 @@ export default Vue.extend({
           this.errors = [];
           this.errors.push('Invalid Credentials');
         } else {
-          this.$router.push({path:'items',query:{user:this.username}});
+          this.$router.push({path:'items'});
         }
       } else {
         if (!this.username) this.errors.push('Username required');
