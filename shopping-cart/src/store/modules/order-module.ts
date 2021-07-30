@@ -45,7 +45,6 @@ export default {
       };
       state.orders.push(orderObject);
       // console.log(state.orders);
-      // rootState.cart.cartItems = [];
     },
   },
   actions: {

@@ -63,6 +63,12 @@ export default {
         (product: CartItem) => product.cartItemId !== productId
       );
     },
+    CLEAR_CART(state: any) {
+      state.cartItems = [];
+      state.subTotalPrice = 0;
+      state.tax = 0;
+      state.totalPrice = 0;
+    },
   },
   actions: {
     addItem(context: any, payload: CartItem) {
@@ -76,6 +82,9 @@ export default {
     },
     getAmount(context: any) {
       context.commit('GET_AMOUNT');
+    },
+    clearCart(context: any) {
+      context.commit('CLEAR_CART');
     },
   },
 };

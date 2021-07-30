@@ -2,21 +2,19 @@
   <div class="container">
     <h1>Orders</h1>
 
-    <div v-if="previousOrders.length > 0">
+    <div v-if="previousOrders.length > 0 && cartProducts.length < 1">
       Here is a summary of your previous products
       <div v-for="(order, index) in previousOrders" :key="index">
-        <p>{{ order.orderId }}</p>
         <p>{{ order.orderId }}</p>
         <p></p>
       </div>
     </div>
 
-    <!-- 
-    <div v-if="previousOrders.length < 0 && cartProducts.length < 0">
-      <p>You have no items in your cart</p>
+    <div v-if="previousOrders.length < 1 && cartProducts.length < 1">
+      <p>You have no items in your cart and no previous orders</p>
       <p>Add Items to cart first</p>
       <router-link to="/items">Go To Home</router-link>
-    </div> -->
+    </div>
 
     <div v-if="orderStatus">Your order has been places successfully</div>
 
@@ -342,6 +340,7 @@ export default Vue.extend({
           },
         };
         await this.$store.dispatch('addOrder', req);
+        await this.$store.dispatch('clearCart');
         this.orderStatus = true;
       }
     },
