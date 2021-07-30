@@ -171,6 +171,7 @@ export default Vue.extend({
       if (this.colorSelected === '') this.errors.push('Select Color');
       if (this.errors.length === 0) {
         await this.$store.dispatch('addItem', req);
+        await this.$store.dispatch('getAmount');
         alert('Item added successfully');
       }
     },

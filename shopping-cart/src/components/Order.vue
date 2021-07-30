@@ -1,161 +1,183 @@
 <template>
   <div class="container">
-    <div class="title">
-      <h2>Product Order Form</h2>
+    <h1>Orders</h1>
+
+    <div v-if="previousOrders.length > 0">
+      Here is a summary of your previous products
+      <div v-for="(order, index) in previousOrders" :key="index">
+        <p>{{ order.orderId }}</p>
+        <p>{{ order.orderId }}</p>
+        <p></p>
+      </div>
     </div>
-    <div class="d-flex">
-      <form v-if="selectPaymentMethod !== 'debit'" action="" method="">
-        <label>
-          <span class="fname">First Name </span>
-          <input v-model="user.firstName" type="text" name="fname" />
-        </label>
-        <label>
-          <span class="lname">Last Name </span>
-          <input v-model="user.lastName" type="text" name="lname" />
-        </label>
-        <label>
-          <span>Country</span>
-          <input v-model="user.country" type="text" name="selection" />
-        </label>
-        <label>
-          <span>Street Address </span>
-          <input v-model="user.addressOne" type="text" name="houseadd" />
-        </label>
-        <label>
-          <span>&nbsp;</span>
-          <input
-            type="text"
-            v-model="user.addressTwo"
-            name="apartment"
-            placeholder="Optional"
-          />
-        </label>
-        <label>
-          <span> City </span>
-          <input v-model="user.city" type="text" name="city" />
-        </label>
-        <label>
-          <span>State </span>
-          <input v-model="user.state" type="text" name="city" />
-        </label>
-        <label>
-          <span>Postcode / ZIP </span>
-          <input v-model="user.pinCode" type="text" name="city" />
-        </label>
-        <label>
-          <span>Phone </span>
-          <input v-model="user.phone" type="tel" name="city" />
-        </label>
-        <label>
-          <span>Email Address </span>
-          <input v-model="user.email" type="email" name="city" />
-        </label>
-        <div v-if="userErrors">
-          <ol>
-            <li v-for="(userError, index) in userErrors" :key="index">
-              {{ userError }}
-            </li>
-          </ol>
+
+    <!-- 
+    <div v-if="previousOrders.length < 0 && cartProducts.length < 0">
+      <p>You have no items in your cart</p>
+      <p>Add Items to cart first</p>
+      <router-link to="/items">Go To Home</router-link>
+    </div> -->
+
+    <div v-if="orderStatus">Your order has been places successfully</div>
+
+    <div v-if="cartProducts.length > 0 && !orderStatus">
+      <div class="title">
+        <h2>Product Order Form</h2>
+      </div>
+      <div class="d-flex">
+        <form v-if="selectPaymentMethod !== 'debit'" action="" method="">
+          <label>
+            <span class="fname">First Name </span>
+            <input v-model="user.firstName" type="text" name="fname" />
+          </label>
+          <label>
+            <span class="lname">Last Name </span>
+            <input v-model="user.lastName" type="text" name="lname" />
+          </label>
+          <label>
+            <span>Country</span>
+            <input v-model="user.country" type="text" name="selection" />
+          </label>
+          <label>
+            <span>Street Address </span>
+            <input v-model="user.addressOne" type="text" name="houseadd" />
+          </label>
+          <label>
+            <span>&nbsp;</span>
+            <input
+              type="text"
+              v-model="user.addressTwo"
+              name="apartment"
+              placeholder="Optional"
+            />
+          </label>
+          <label>
+            <span> City </span>
+            <input v-model="user.city" type="text" name="city" />
+          </label>
+          <label>
+            <span>State </span>
+            <input v-model="user.state" type="text" name="city" />
+          </label>
+          <label>
+            <span>Postcode / ZIP </span>
+            <input v-model="user.pinCode" type="text" name="city" />
+          </label>
+          <label>
+            <span>Phone </span>
+            <input v-model="user.phone" type="tel" name="city" />
+          </label>
+          <label>
+            <span>Email Address </span>
+            <input v-model="user.email" type="email" name="city" />
+          </label>
+          <div v-if="userErrors">
+            <ol>
+              <li v-for="(userError, index) in userErrors" :key="index">
+                {{ userError }}
+              </li>
+            </ol>
+          </div>
+        </form>
+        <form v-else>
+          <label>
+            <span class="fname">Name on Card</span>
+            <input v-model="card.name" type="text" />
+          </label>
+          <label>
+            <span class="lname">Card number </span>
+            <input v-model="card.number" type="text" />
+          </label>
+          <label>
+            <span>Exp Month </span>
+            <select v-model="card.expMonth">
+              <option :value="0">Choose Month</option>
+              <option
+                v-for="(month, index) in months"
+                :value="month"
+                :key="index"
+              >
+                {{ month }}
+              </option>
+            </select>
+          </label>
+          <label>
+            <span>Exp Year </span>
+            <select v-model="card.expYear">
+              <option :value="0">Choose Year</option>
+              <option
+                v-for="(year, index) in cardYearOptions"
+                :value="year"
+                :key="index"
+              >
+                {{ year }}
+              </option>
+            </select>
+          </label>
+          <label>
+            <span>CVV </span>
+            <input v-model="card.cvv" type="text" />
+          </label>
+          <div v-if="cardErrors">
+            <ol>
+              <li v-for="(cardError, index) in cardErrors" :key="index">
+                {{ cardError }}
+              </li>
+            </ol>
+          </div>
+        </form>
+        <div class="Yorder">
+          <table>
+            <tr>
+              <th colspan="2">Payment</th>
+            </tr>
+            <tr v-for="(item, index) in cartProducts" :key="index">
+              <td>{{ item.title }} x {{ item.quantitySelected }}(Qty)</td>
+              <td>₹{{ item.subTotalPrice }}</td>
+            </tr>
+            <tr>
+              <td>Subtotal</td>
+              <td>₹{{ subTotal }}</td>
+            </tr>
+            <tr>
+              <td>Tax</td>
+              <td>₹{{ taxOnCart }}</td>
+            </tr>
+            <tr>
+              <td>Shipping</td>
+              <td>₹{{ shipping }}</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td>₹{{ totalCartPrice }}</td>
+            </tr>
+          </table>
+          <br />
+          <div>
+            <input
+              type="radio"
+              name="dbt"
+              value="cod"
+              @click="onChange($event)"
+            />
+            Cash on Delivery
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="dbt"
+              value="debit"
+              @change="onChange($event)"
+            />
+            Card
+            <img
+              src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg"
+              alt=""
+              width="50"
+            />
+          </div>
+          <button type="button" @click="placeOrder">Place Order</button>
         </div>
-      </form>
-      <form v-else>
-        <label>
-          <span class="fname">Name on Card</span>
-          <input v-model="card.name" type="text" />
-        </label>
-        <label>
-          <span class="lname">Card number </span>
-          <input v-model="card.number" type="text" />
-        </label>
-        <label>
-          <span>Exp Month </span>
-          <select v-model="card.expMonth">
-            <option :value="0">Choose Month</option>
-            <option
-              v-for="(month, index) in months"
-              :value="month"
-              :key="index"
-            >
-              {{ month }}
-            </option>
-          </select>
-        </label>
-        <label>
-          <span>Exp Year </span>
-          <select v-model="card.expYear">
-            <option :value="0">Choose Year</option>
-            <option
-              v-for="(year, index) in cardYearOptions"
-              :value="year"
-              :key="index"
-            >
-              {{ year }}
-            </option>
-          </select>
-        </label>
-        <label>
-          <span>CVV </span>
-          <input v-model="card.cvv" type="text" />
-        </label>
-        <div v-if="cardErrors">
-          <ol>
-            <li v-for="(cardError, index) in cardErrors" :key="index">
-              {{ cardError }}
-            </li>
-          </ol>
-        </div>
-      </form>
-      <div class="Yorder">
-        <table>
-          <tr>
-            <th colspan="2">Payment</th>
-          </tr>
-          <tr v-for="(item, index) in cartProducts" :key="index">
-            <td>{{ item.title }} x {{ item.quantitySelected }}(Qty)</td>
-            <td>₹{{ item.subTotalPrice }}</td>
-          </tr>
-          <tr>
-            <td>Subtotal</td>
-            <td>₹{{ subTotal }}</td>
-          </tr>
-          <tr>
-            <td>Tax</td>
-            <td>₹{{ taxOnCart }}</td>
-          </tr>
-          <tr>
-            <td>Shipping</td>
-            <td>₹{{ shipping }}</td>
-          </tr>
-          <tr>
-            <td>Total</td>
-            <td>₹{{ totalCartPrice }}</td>
-          </tr>
-        </table>
-        <br />
-        <div>
-          <input
-            type="radio"
-            name="dbt"
-            value="cod"
-            @click="onChange($event)"
-          />
-          Cash on Delivery
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="dbt"
-            value="debit"
-            @change="onChange($event)"
-          />
-          Card
-          <img
-            src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg"
-            alt=""
-            width="50"
-          />
-        </div>
-        <button type="button" @click="placeOrder">Place Order</button>
       </div>
     </div>
   </div>
@@ -204,9 +226,10 @@ export default Vue.extend({
         addressOne: '',
         country: '',
       },
-      orderStatus: false,
       userErrors: [],
       cardErrors: [],
+      orderStatus: false,
+      previousOrdersState: [],
     };
   },
   methods: {
@@ -225,6 +248,10 @@ export default Vue.extend({
       }
       if (this.user.email === '') {
         this.userErrors.push('Enter Email');
+        isUserValid = false;
+      }
+      if (this.user.email !== '' && !validator.isEmail(this.user.email)) {
+        this.userErrors.push(' valid email');
         isUserValid = false;
       }
       if (this.user.phone === '') {
@@ -301,20 +328,22 @@ export default Vue.extend({
           return;
         }
       }
-      const req = {
-        user: this.user,
-        paymentMode: this.selectPaymentMethod,
-        cardDetails: this.card,
-        items: this.cartProducts,
-        payment: {
-          subTotal: this.subTotal,
-          tax: this.taxOnCart,
-          shipping: this.shipping,
-          total: this.totalCartPrice,
-        },
-      };
-      await this.$store.dispatch('addOrder', req);
-      this.orderStatus = true;
+      if (this.cardErrors.length === 0 && this.userErrors.length === 0) {
+        const req = {
+          user: this.user,
+          paymentMode: this.selectPaymentMethod,
+          cardDetails: this.card,
+          items: this.cartProducts,
+          payment: {
+            subTotal: this.subTotal,
+            tax: this.taxOnCart,
+            shipping: this.shipping,
+            total: this.totalCartPrice,
+          },
+        };
+        await this.$store.dispatch('addOrder', req);
+        this.orderStatus = true;
+      }
     },
   },
   computed: {
@@ -334,6 +363,9 @@ export default Vue.extend({
       const tax = this.$store.state.auth.user.prime ? 0 : 50;
       return tax + this.$store.state.cart.totalPrice;
     },
+    previousOrders() {
+      return this.$store.state.order.orders;
+    },
   },
   beforeMount() {
     const authUser: User = this.$store.state.auth.user;
@@ -351,6 +383,7 @@ export default Vue.extend({
     for (let i = year; i < year + 10; i++) {
       this.cardYearOptions.push(i);
     }
+    this.previousOrdersState = this.previousOrders;
   },
 });
 </script>
