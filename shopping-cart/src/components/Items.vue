@@ -2,7 +2,7 @@
   <div>
     <div v-if="!invalidUser">
       <div>
-        <h3>Hi {{user}}</h3>
+        <h3>Hi {{ user }}</h3>
       </div>
       <h1>Items are :</h1>
       <div class="filters">
@@ -12,8 +12,13 @@
         </div>
         <div id="filters" v-if="filterActive" class="filter-by">
           <p>Filter By:</p>
-          <div v-for="(filterValue,index) in filterByList" :key="index">
-            <input type="checkbox"  v-model="appliedFilters" :id="'filter'+filterValue" :value="filterValue"/><label>{{filterValue}}</label>
+          <div v-for="(filterValue, index) in filterByList" :key="index">
+            <input
+              type="checkbox"
+              v-model="appliedFilters"
+              :id="'filter' + filterValue"
+              :value="filterValue"
+            /><label>{{ filterValue }}</label>
           </div>
           <button type="submit" @click="getItems">Apply</button>
         </div>
@@ -58,7 +63,7 @@
                 <ul class="color">
                   <li
                     v-for="(color, index) in item.color"
-                    @click="colorSelected=color"
+                    @click="colorSelected = color"
                     :key="index"
                   >
                     {{ color }}
@@ -70,7 +75,7 @@
                 <ul class="sizes">
                   <li
                     v-for="(size, index) in item.sizes"
-                    @click="sizeSelected=size;"
+                    @click="sizeSelected = size"
                     :key="index"
                   >
                     {{ size }}
@@ -113,30 +118,34 @@ import { GetItemsRequest } from '../services/get-items-service';
 export default Vue.extend({
   data() {
     return {
-      user:'',
-      invalidUser:true,
+      user: '',
+      invalidUser: true,
       items: [] as Items,
       sortBy: 0,
       search: '',
-      filterActive:false,
-      filterButton:true,
-      appliedFilters:[],
+      filterActive: false,
+      filterButton: true,
+      appliedFilters: [],
       // filterBy:[],
       sizeSelected: '',
       colorSelected: '',
       itemSelected: 0,
       sortByList: ['Default', 'Highest to Lowest', 'Lowest to Highest'],
-      filterByList :['Include Out of Stock','Male Products','Female Products'],
+      filterByList: [
+        'Include Out of Stock',
+        'Male Products',
+        'Female Products',
+      ],
       errors: [],
     };
   },
   created() {
-    if( this.$store.state.auth.user.userName){
-          this.user= this.$store.state.auth.user.firstName;
-          this.invalidUser=false;
-          this.getItems();
-    }else{
-      this.invalidUser=true;
+    if (this.$store.state.auth.user.userName) {
+      this.user = this.$store.state.auth.user.firstName;
+      this.invalidUser = false;
+      this.getItems();
+    } else {
+      this.invalidUser = true;
     }
   },
   methods: {
@@ -144,7 +153,7 @@ export default Vue.extend({
       const req: GetItemsRequest = {
         search: this.search,
         sortBy: this.sortBy,
-        filterBy : this.appliedFilters
+        filterBy: this.appliedFilters,
       };
       await this.$store.dispatch('getItems', req);
       const itemsState = this.$store.state.items;
@@ -171,9 +180,9 @@ export default Vue.extend({
         alert('Item added successfully');
       }
     },
-    applyFilter(){
-      this.filterActive=true;
-      this.filterButton=false;
+    applyFilter() {
+      this.filterActive = true;
+      this.filterButton = false;
     },
   },
 });
@@ -202,10 +211,10 @@ export default Vue.extend({
   gap: 20px;
   align-items: center;
 }
-.filter-by{
+.filter-by {
   display: flex;
-  gap :20px;
-  align-items:center;
+  gap: 20px;
+  align-items: center;
 }
 .item-container li {
   list-style-type: none;
@@ -251,7 +260,7 @@ export default Vue.extend({
 .buy--btn:active {
   transform: scale(0.97);
 }
-.product--color:active{
+.product--color:active {
   background-color: black;
 }
 input {

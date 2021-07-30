@@ -6,7 +6,7 @@
     "description": "",
     "imageLink": "https://images.bewakoof.com/original/musix-baba-half-sleeve-t-shirt-men-s-printed-t-shirts-384427-1627369762.jpg?tr=q-100",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 5,
     "brand": "Google",
     "color": ["Black", "White", "Maroon", "Blue"],
     "condition": "new",
@@ -44,7 +44,7 @@
     "gender": "M",
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 1,
     "brand": "Google",
     "condition": "new",
     "price": {
@@ -80,7 +80,7 @@
     "gender": "M",
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 10,
     "brand": "Google",
     "condition": "new",
     "price": {
@@ -98,7 +98,7 @@
     "gender": "M",
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 22,
     "brand": "Google",
     "condition": "new",
     "price": {
@@ -116,7 +116,7 @@
     "gender": "M",
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 12,
     "brand": "Google",
     "condition": "new",
     "price": {
@@ -134,7 +134,7 @@
     "gender": "M",
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 42,
     "brand": "Google",
     "condition": "new",
     "price": {
@@ -152,7 +152,7 @@
     "gender": "M",
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 9,
     "brand": "Google",
     "condition": "new",
     "price": {
@@ -171,7 +171,7 @@
     "sp": null,
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 7,
     "brand": "Google",
     "condition": "new",
     "price": {
@@ -189,7 +189,7 @@
     "gender": "M",
     "imageLink": "https://shop.example.com/.../images/GGOEGXXX1100.jpg",
     "availability": true,
-    "availablePieces": 2,
+    "availablePieces": 11,
     "brand": "Google",
     "condition": "new",
     "price": {

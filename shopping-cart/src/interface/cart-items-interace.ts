@@ -1,4 +1,5 @@
 export interface CartItem {
+  cartItemId?: string;
   kind: string;
   id: number;
   description: string;

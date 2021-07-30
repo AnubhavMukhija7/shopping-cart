@@ -12,14 +12,12 @@ export default {
   },
   mutations: {
     GET_ITEMS(state: any, payload: GetItemsResponse) {
-      console.log('state', state);
       state.items = payload.data;
       state.message = payload.message;
     },
   },
   actions: {
     async getItems(context: any, payload: GetItemsRequest) {
-      console.log('context', context);
       const response = await getItemsService(payload);
       context.commit('GET_ITEMS', response);
     },

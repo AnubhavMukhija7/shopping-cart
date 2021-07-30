@@ -24,12 +24,17 @@
           <td>
             <input
               type="number"
+              min="1"
+              :max="product.availablePieces"
               v-model="product.quantitySelected"
-              @change="update"
+              @change="update(product)"
             />
+            <div v-if="outOfStock && product.cartItemId === itemSelectedId">
+              Available STOCK : {{ product.availablePieces }}
+            </div>
           </td>
           <td>
-            <select v-model="product.sizeSelected" @change="update">
+            <select v-model="product.sizeSelected" @change="update(product)">
               <option
                 v-for="(size, index) in product.sizes"
                 :value="size"
@@ -40,7 +45,7 @@
             </select>
           </td>
           <td>
-            <select v-model="product.colorSelected" @change="update">
+            <select v-model="product.colorSelected" @change="update(product)">
               <option
                 v-for="(color, index) in product.color"
                 :value="color"
@@ -58,7 +63,7 @@
             </div>
           </td>
           <td>
-            <button @click="deleteProduct(product.id)">Remove</button>
+            <button @click="deleteProduct(product.cartItemId)">Remove</button>
           </td>
         </tr>
       </table>
@@ -85,18 +90,36 @@
 </template>
 
 <script lang="ts">
-import { CartItem, CartItems } from '../interface/cart-items-interace';
 import Vue from 'vue';
+import { CartItem, CartItems } from '../interface/cart-items-interace';
 export default Vue.extend({
+  data() {
+    return {
+      //   items: [] as CartItems,
+      //   selectedColor: '',
+      //   selectedSize: '',
+      //   selectedQuantity: '',
+      outOfStock: false,
+      itemSelectedId: '',
+    };
+  },
   methods: {
-    subTotalCalc(priceEach: number, quantity: number): number {
-      return priceEach * quantity;
+    subTotalCalc() {
+      this.$store.dispatch('getAmount');
     },
-    deleteProduct(productId: number) {
+    deleteProduct(productId: string) {
       this.$store.dispatch('deleteItem', productId);
+      this.subTotalCalc();
     },
-    update() {
-      this.$store.dispatch('updateItem', this.cartProducts);
+    update(product: CartItem) {
+      this.itemSelectedId = product.cartItemId;
+      if (product.availablePieces >= product.quantitySelected) {
+        this.$store.dispatch('updateItem', product);
+      } else {
+        product.quantitySelected = product.availablePieces;
+        this.outOfStock = true;
+      }
+      this.subTotalCalc();
     },
   },
   computed: {

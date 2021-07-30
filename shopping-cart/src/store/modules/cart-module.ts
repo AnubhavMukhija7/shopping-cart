@@ -1,5 +1,6 @@
 import { CartItem, CartItems } from '@/interface/cart-items-interace';
 import { Item } from '@/interface/items-interface';
+import uniqid from 'uniqid';
 
 export default {
   state: {
@@ -10,9 +11,10 @@ export default {
   },
   mutations: {
     ADD_ITEM(state: any, payload: CartItem) {
+      const cartItemId = uniqid('cartItem-');
       if (state.cartItems.length < 1) {
         const subTotalPrice = payload.price.value * payload.quantitySelected;
-        payload = { ...payload, subTotalPrice };
+        payload = { ...payload, subTotalPrice, cartItemId };
         state.cartItems.push(payload);
       } else {
         let isPresent = false;
@@ -24,7 +26,8 @@ export default {
           ) {
             isPresent = true;
             item.quantitySelected += payload.quantitySelected;
-            if (item.subTotalPrice) {
+            if (item.subTotalPrice && item.cartItemId) {
+              item.cartItemId = cartItemId;
               item.subTotalPrice +=
                 payload.price.value * payload.quantitySelected;
             }
@@ -32,31 +35,32 @@ export default {
         });
         if (!isPresent) {
           const subTotalPrice = payload.price.value * payload.quantitySelected;
-          payload = { ...payload, subTotalPrice };
+          payload = { ...payload, subTotalPrice, cartItemId };
           state.cartItems.push(payload);
         }
       }
     },
-    UPDATE_ITEM(state: any, payload: Item) {
-      state.cartItems = payload;
-      const total = 0;
-      const productArray = state.cartItems;
-      //   productArray.forEach((product: Items) => {
-      //     if (product.quantity > 0) {
-      //       total += product.price * product.quantity;
-      //     } else {
-      //       alert('enter the quantity in positive value');
-      //       product.quantity = 1;
-      //     }
-      //   });
-      console.log(total);
+    UPDATE_ITEM(state: any, payload: CartItem) {
+      state.cartItems.forEach((item: CartItem) => {
+        if (item.cartItemId === payload.cartItemId) {
+          item.subTotalPrice = payload.price.value * payload.quantitySelected;
+          item = payload;
+        }
+      });
+    },
+    GET_AMOUNT(state: any) {
+      let total = 0;
+      state.cartItems.forEach(
+        (product: CartItem) =>
+          (total += product.price.value * product.quantitySelected)
+      );
       state.subTotalPrice = total;
-      state.tax = (12 / 100) * total;
+      state.tax = Math.round((12 / 100) * total);
       state.totalPrice = state.subTotalPrice + state.tax;
     },
-    DELETE_ITEM(state: any, productId: number) {
+    DELETE_ITEM(state: any, productId: string) {
       state.cartItems = state.cartItems.filter(
-        (product: CartItem) => product.id !== productId
+        (product: CartItem) => product.cartItemId !== productId
       );
     },
   },
@@ -69,6 +73,9 @@ export default {
     },
     deleteItem(context: any, payload: number) {
       context.commit('DELETE_ITEM', payload);
+    },
+    getAmount(context: any) {
+      context.commit('GET_AMOUNT');
     },
   },
 };
