@@ -112,6 +112,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { CartItem } from '../interface/cart-items-interace';
 import { Item, Items } from '../interface/items-interface';
 import { GetItemsRequest } from '../services/get-items-service';
 export default Vue.extend({
@@ -170,9 +171,21 @@ export default Vue.extend({
       if (this.sizeSelected === '') this.errors.push('Select Size');
       if (this.colorSelected === '') this.errors.push('Select Color');
       if (this.errors.length === 0) {
-        await this.$store.dispatch('addItem', req);
-        await this.$store.dispatch('getAmount');
-        alert('Item added successfully');
+        let cartItems = this.$store.state.cart.cartItems;
+        let itemCheck = 0;
+        if (cartItems) {
+          cartItems.forEach((addedItems: Item) => {
+            if (addedItems.id === req.id) {
+              itemCheck = 1;
+              alert('this item is already in cart');
+            }
+          });
+        }
+        if (itemCheck != 1) {
+          await this.$store.dispatch('addItem', req);
+          await this.$store.dispatch('getAmount');
+          alert('Item added successfully');
+        }
       }
     },
     applyFilter() {

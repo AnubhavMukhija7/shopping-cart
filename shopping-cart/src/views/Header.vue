@@ -4,14 +4,19 @@
       <li><router-link :to="{name:'Items'}" exact>Explore Items</router-link></li>
       <li><router-link :to="{name:'Cart'}" exact>Go To Cart</router-link></li>
       <li><router-link :to="{name:'Order'}" exact>Your Orders</router-link></li>
-      <li><router-link :to="{name:'Login'}" exact>Logout</router-link></li>
+      <li><button @click="logout">LogOut</button></li>
     </ul>
   </nav>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-
+  methods:{
+    logout(){
+      this.$store.dispatch('clearState');
+      this.$router.replace('/');
+    }
+  }
 
 })
 </script>
