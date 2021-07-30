@@ -44,7 +44,7 @@ export default {
         orderStatus: false,
       };
       state.orders.push(orderObject);
-      console.log(state.orders);
+      // console.log(state.orders);
     },
   },
   actions: {
