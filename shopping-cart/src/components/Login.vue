@@ -184,10 +184,16 @@ export default Vue.extend({
       }
     },
   },
-  mounted() {
+  beforeCreate(){
+    if(this.$store.state.auth.user.userName){
+        this.$router.replace('/items')
+        console.log(this.$store.state.auth.user);
+      }
+  },
+  created() {
     window.onpopstate = () => {
-      if (this.$store.state.auth.user !== null && this.$route.path == '/') {
-        this.$router.push('/items');
+      if (this.$store.state.auth.user!=null && this.$route.path == '/') {
+        this.$router.push({path:'items'});
       }
     };
   },

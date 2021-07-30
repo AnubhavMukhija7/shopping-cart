@@ -12,7 +12,6 @@ export const filterItem= (items :Items , filterBy:any):Items=>{
         arr=defaultArr;
     }else{
         arr=[];
-        console.log(arr);
         if(filterBy.includes('Male Products')){
             const mArr=[] as Items
             items.forEach(item=>{
@@ -20,6 +19,7 @@ export const filterItem= (items :Items , filterBy:any):Items=>{
                     mArr.push(item);
                 }
             });
+            arr = arr.concat(mArr);
         }
         if(filterBy.includes('Female Products')){
             const fArr=[] as Items;
@@ -29,7 +29,6 @@ export const filterItem= (items :Items , filterBy:any):Items=>{
                 }
             })
             arr =arr.concat(fArr);
-            console.log(arr);
         }
         if(filterBy.includes('Include Out of Stock')){
             const outArr=[] as Items;
@@ -37,8 +36,14 @@ export const filterItem= (items :Items , filterBy:any):Items=>{
                 outArr.push(item);
             })
             arr=[...arr,...outArr]
-            console.log(arr);
+            
         }
     }
+    const key='id';
+    arr = getUniqueItems(arr,key)
     return arr;
+}
+
+const getUniqueItems=(arr:Items,key:any):Items=>{
+    return[...new Map(arr.map(item=>[item[key],item])).values()]
 }

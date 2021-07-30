@@ -14,7 +14,7 @@ export default Vue.extend({
   methods:{
     logout(){
       this.$store.dispatch('clearState');
-      this.$router.replace('/');
+      this.$router.push({path:'/'});
     }
   }
 
